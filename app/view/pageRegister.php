@@ -93,11 +93,22 @@ class pageRegister extends model\pageTemplate{
 				
 					try{
 						$this->db->beginTransaction(); //like git init
-						$actCheck = 0;
+						$actCheck = 0;	
+
+						// Check to see if there are any duplicate accounts in the database
+
 						$stmt = $this->db->prepare('
 							select * from account where account_username = :user;
 							');
 						$stmt->bindParam(':user', $user);
+						$stmt->execute();
+						while($data = $stmt->fetch()){
+							$actCheck = $actCheck + 1;
+						}
+						$stmt = $this->db->prepare('
+							select * from account where account_email = :email;
+							');
+						$stmt->bindParam(':email', $email);
 						$stmt->execute();
 						while($data = $stmt->fetch()){
 							$actCheck = $actCheck + 1;

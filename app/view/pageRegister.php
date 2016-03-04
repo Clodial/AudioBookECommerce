@@ -93,26 +93,38 @@ class pageRegister extends model\pageTemplate{
 				
 					try{
 						$this->db->beginTransaction(); //like git init
+						$actCheck = 0;
 						$stmt = $this->db->prepare('
-							insert into account(account_type_ID, account_email, account_address, account_username, account_password, phone_num)
-							values(
-								:acType,
-								:email,
-								:address,
-								:user,
-								:pass,
-								:phone);');
-						$stmt->bindParam(':acType', $actType);
-						$stmt->bindParam(':email', $email);
-						$stmt->bindParam(':address', $address);
+							select * from account where account_username = :user;
+							');
 						$stmt->bindParam(':user', $user);
-						$stmt->bindParam(':pass', $pass);
-						$stmt->bindParam(':phone', $number);
-						$stmt->execute(); // like a git add
-
+						$stmt->execute();
+						while($data = $stmt->fetch()){
+							$actCheck = $actCheck + 1;
+						}
+						if($actCheck == 0){
+							$stmt = $this->db->prepare('
+								insert into account(account_type_ID, account_email, account_address, account_username, account_password, phone_num)
+								values(
+									:acType,
+									:email,
+									:address,
+									:user,
+									:pass,
+									:phone);');
+							$stmt->bindParam(':acType', $actType);
+							$stmt->bindParam(':email', $email);
+							$stmt->bindParam(':address', $address);
+							$stmt->bindParam(':user', $user);
+							$stmt->bindParam(':pass', $pass);
+							$stmt->bindParam(':phone', $number);
+							$stmt->execute(); // like a git add
+							echo '<h3>Registration Successful</h3>';
+						}else{
+							echo '<h3>Account Exists</h3>';
+						}
 						$this->db->commit(); // like a git commit
 
-						echo '<h3>Username Successful</h3>';
 						echo '<form method="get">';
 						echo ' 	<button type="submit" name="page" value="pageLogin">Sign In</button>';
 						echo '</form>';

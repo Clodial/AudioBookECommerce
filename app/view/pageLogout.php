@@ -15,7 +15,7 @@ class pageLogout extends model\pageTemplate{
 	public function getBody(){
 
 		if(isset($_SESSION['username'])){
-			session_unset();
+			session_destroy();
 			echo '<p>Logout Successful.</p>';
 		}
 		echo '<form method="get">';

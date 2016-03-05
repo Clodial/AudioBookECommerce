@@ -53,25 +53,25 @@ class pageLogin extends model\pageTemplate{
 
 						$rowCount = 0;
 	
-						$stmt = $this->db->prepare('select account_username from account 
-													where account_username="' . $_REQUEST['username'] . '" 
-													and account_password="' . $_REQUEST['password'] . '"');
+						$stmt = $this->db->prepare('select account.account_username, account_type.account_type from account, account_type 
+													where account.account_username=:user 
+													and account.account_password=:pass
+													and account_type.account_type_ID = account.account_type_ID');
 						
+						$stmt->bindParam(':user', $_REQUEST['username']);
+						$stmt->bindParam(':pass', $_REQUEST['password']);
 						if($stmt->execute()){
 							while($data = $stmt->fetch()){
 								$rowCount = $rowCount + 1;
 								$_SESSION['username'] = $data[0];
-								if($data[1] == 1){				
-									$_SESSION['actType'] = "employee";
-								}else{
-									$_SESSION['actType'] = "customer";
-								}
+								$_SESSION['actType'] = $data[1];
 							}
 						}
 						if($rowCount > 0){
 							echo '<h4>Login Successful!';
+							echo 'Welcome, ' . $_SESSION['username'] . '!';
 							echo '<form method="get">
-									<button>Check your Account</button>
+									<button type="submit" name="page" value="pageActSettings">Check your Account</button>
 								  </form>';
 						}else{
 							echo '<h4>Login Unsuccessful</h4>';

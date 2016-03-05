@@ -1,3 +1,9 @@
+<?php
+
+ob_start();
+session_start();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +16,6 @@
 
 <div class="container">
 <?php
-
-ob_start();
-session_start();
 
 include("app/model/dbConnect.php");
 

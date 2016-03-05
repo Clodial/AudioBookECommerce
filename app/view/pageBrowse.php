@@ -14,9 +14,24 @@ class pageBrowse extends model\pageTemplate{
 
 	}
 
-	public function getBody(){
-		
-	}
+	public function getBody()
+		{
+			try{
+				$rowcount;
+				$stmt = $this->db->prepare('select * from inventory where item_ID <= 3');
+				if($stmt->execute())
+				{
+					while($data = $stmt->fetch())
+					{
+						$rowcount = $rowcount+1;
+						echo 'Book1:'.$data[0].'';
+					}
+				}
+			}catch(Exception $e)
+			{
+				echo'errrrrrrrrrrrror';
+			}
+		}
 
 } 
 

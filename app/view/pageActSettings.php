@@ -58,10 +58,43 @@ class pageActSettings extends model\pageTemplate{
 		**/
 
 		// check if needed variables are set
-		if(isset($_REQUEST['pass']) || isset($_REQUEST['rePass']) || isset($_REQUEST['email']) || isset($_REQUEST['address']) || isset($_REQUEST['phone'])){
+		if(isset($_REQUEST['password']) && isset($_REQUEST['rePass']) && isset($_REQUEST['email']) && isset($_REQUEST['address']) && isset($_REQUEST['number'])){
+			echo 'hi';
+			if($_REQUEST['password'] == $_REQUEST['rePass']){
+				echo 'hihi';
+				$pass = $_REQUEST['password'];
+				$email = $_REQUEST['email'];
+				$address = $_REQUEST['address'];
+				$phone = $_REQUEST['number'];
 
-
-
+				try{
+					$this->db->beginTransaction();
+					$stmt = $this->db->prepare('
+						update account set 
+						account_password = :pass,
+						account_email = :email,
+						account_address = :address,
+						phone_num = :phone
+						where account_username = :user
+					');
+					$stmt->bindParam(':pass', $pass);
+					$stmt->bindParam(':email', $email);
+					$stmt->bindParam(':address', $address);
+					$stmt->bindParam(':phone', $phone);
+					$stmt->bindParam(':user', $_SESSION['username']);
+					$stmt->execute();
+					$this->db->commit();
+					echo 'Info Change Successful';
+					$this->infoDump();
+				}catch(Exception $e){
+					$this->db->rollBack();
+					echo 'Error in Updating Info';
+					$this->infoDump();
+				}
+			}else{
+				echo 'Incorrect Password';
+				$this->infoDump();
+			}
 		}else{
 
 			// Regular form asking for stuff
@@ -106,8 +139,6 @@ class pageActSettings extends model\pageTemplate{
 			//This creates the new book
 			$this->newBook($_REQUEST['bName'],$_REQUEST['bAuth'],$_REQUEST['bDesc'],$_REQUEST['bPrice'],$_FILES['bFile'],$_REQUEST['bGenre']);
 
-		}else{
-			echo '<h3>Error Out</h3>';
 		}
 
 		try{
@@ -194,7 +225,7 @@ class pageActSettings extends model\pageTemplate{
 		echo '
 				<div class="logBody">
 					<h2>Update User Info</h2>
-					<form method="get">
+					<form method="post">
 						<label>Email</label>
 						<input type="text" name="email" required><br>
 						<label>Address</label>
@@ -205,7 +236,6 @@ class pageActSettings extends model\pageTemplate{
 						<input type="text" name="password" required></br>
 						<label>Retype Password</label>
 						<input type="text" name="rePass" required></br>
-						<label>Account Type</label>
 						<button type="submit" name="page" value="pageActSettings">Register</button>
 					</form>
 				</div>

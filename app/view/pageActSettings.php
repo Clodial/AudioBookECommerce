@@ -286,6 +286,7 @@ class pageActSettings extends model\pageTemplate{
 				$stmt->bindParam(':date', $timeStr);
 				$stmt->execute();
 				$this->db->commit();
+				echo 'Book Successfully Added';
 			}
 			//echo '<img src="data:image/jpeg;base64,'.base64_encode( $fContent ).'"/>';
 		}catch(Exception $e){

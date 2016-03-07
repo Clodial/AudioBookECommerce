@@ -13,32 +13,26 @@ class pageBrowse extends model\pageTemplate
 		$this->db = $db;
 
 	}
+	public function getBody(){
 
-		public function getBody()
-		{
-			try{
-				
-				$rowcount = 1;
+		try{
 
-				$stmt = $this->db->prepare('select * from inventory limit 3');
+			$rowcount = 0;
+			$stmt = $this->db->prepare('select * from inventory where item_ID <= 3');
 
-				if($stmt->execute())
-				{
-					while($data = $stmt->fetch())
-					{
-						echo ''.$data[5].'-  Book ID:'.$data[0].' Author:'.$data[2].' Price: $'.$data[4].'<br>';
+			if($stmt->execute()){
 
-						$rowcount++;
-					}
+				while($data = $stmt->fetch()){
+					echo ''.$data[5].'-  Book ID:'.$data[0].' Author:'.$data[2].' Price: $'.$data[4].'<br>';
+					$rowcount++;
 				}
-
-
 			}
-			catch(Exception $e)
-			{
-				echo'errrrrrrrrrrrror';
-			}
+
+		}catch(Exception $e){
+			echo'errrrrrrrrrrrror';
 		}
+
+	}
 
 } 
 

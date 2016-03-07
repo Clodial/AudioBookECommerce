@@ -41,6 +41,8 @@ class pageChOrder extends model\pageTemplate{
 					$stmt->execute();
 					$stmt = $this->db->prepare('insert into order_status(order_status) values("canned");');
 					$stmt->execute();
+					$stmt = $this->db->prepare('insert into order_status(order_status) values("cart");');
+					$stmt->execute();
 					$this->db->commit();
 				}catch(Exception $e){
 					$this->db->rollBack();

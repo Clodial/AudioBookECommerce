@@ -108,7 +108,28 @@ class pageChOrder extends model\pageTemplate{
 				}
 				echo '</div>
 				';
+				if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'employee'){
+					
+					// Add the ability to modify orders in the database
+					
+					echo '
+					<div class="formBody">
+						<form method="post">
+							<label>Update Order Status</label>
+							<select name="ordStat">';
+					$stmt = $this->db->prepare('
+						select * from order_status;');
+					if($stmt->execute()){
+						while($data = $stmt->fetch()){
+							echo '<option value="' . $data[0] . '">' . $data[1] . '</option>';
+						}
+					}
+					echo '	</select>
+							<button type="submit" name="page" value="pageChOrder">Update Order
+						</form>
+					</div>';
 
+				}
 			}catch(Exception $e){
 
 			}

@@ -15,7 +15,7 @@ spl_autoload_register('autoloader::load');
 $dbName = 'it490';
 $dbPass = 'root';
 $dbUser = 'root';
-$dbHost = 'localhost';
+$dbHost = 'localhost:8889';
 $mainEmail = 'maravillamatthew@gmail.com';
 
 ?>

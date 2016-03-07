@@ -160,7 +160,7 @@ class pageActSettings extends model\pageTemplate{
 				<label>Item Description</label><br>
 				<textarea name="bDesc" cols=40 rows=6 required></textarea></br>
 				<label>Item Price</label>
-				<input type="text" name="bPrice" required></br>
+				<input type="number" step="any" name="bPrice" required></br>
 				<label>Book Image(jpg)</label>
 				<input type="file" name="bFile" required></br>
 				<select name="bGenre">';
@@ -214,32 +214,47 @@ class pageActSettings extends model\pageTemplate{
 
 	}
 
-	public function newBook($name,$auth,$desc,$price,$image){
+	public function newBook($name,$auth,$desc,$price,$image,$genre){
 
+		$timeStr = date('Y-m-d');
 		$fName = $image['name'];
 		$fTemp = $image['tmp_name'];
 		$fName = $image['name'];
 		$fSize = $image['size'];
 		$fType = $image['type'];
-
+		
 		try{
 			$fContent = file_get_contents($fTemp);
-			if($fType != 'jpeg'){
+			if($fType != 'image/jpeg'){
 				//force an error
-				throw new Exception("Images Must Be JPG or JPEG format");
+				echo 'Try Again';
 			}else{
+				
 				// run new book object
 				$this->db->beginTransaction();
+				/*$stmt = $this->db->prepare('
+					select genre_ID from genre where genre_name=
+				');*/
 				$stmt = $this->db->prepare('
-					insert into inventory values(
+					insert into inventory(`genre_ID`, `author_name`, `item_details`, `item_price`, `item_name`, `item_img`, `date_added`) 
+					values(
 						:gen,
 						:auth,
-						:det,
+						:desc,
 						:price,
 						:name,
 						:img,
-						:date);
+						:date
+					);
 				');
+				$stmt->bindParam(':gen', $genre);
+				$stmt->bindParam(':auth', $auth);
+				$stmt->bindParam(':desc', $desc);
+				$stmt->bindParam(':price', $price);
+				$stmt->bindParam(':name', $name);
+				$stmt->bindParam(':img', $fTemp);
+				$stmt->bindParam(':date', $timeStr);
+				$stmt->execute();
 				$this->db->commit();
 			}
 			//echo '<img src="data:image/jpeg;base64,'.base64_encode( $fContent ).'"/>';

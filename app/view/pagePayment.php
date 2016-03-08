@@ -40,7 +40,7 @@ class pagePayment extends model\pageTemplate
 				*
 				**/
 
-				private $id; 
+				$id;
 				$noc = $_REQUEST['noc'];
 				$billad = $_REQUEST['billad'];
 				$ccnum = $_REQUEST['ccnum'];
@@ -56,10 +56,12 @@ class pagePayment extends model\pageTemplate
 							');
 
 					$stmt->bindParam(':name', $_SESSION['username']);
-					while($data = $stmt->fetch()){
-							$id = $data;
+					if($stmt->execute())
+					{
+						while($data = $stmt->fetch()){
+								$id = $data[0];
+						}
 					}
-					$stmt->execute();
 					$stmt = $this->db->prepare('
 								insert into customer_payment(account_ID , name_on_card, billing_address, card_number, expDate, phNum) 
 								values(
@@ -116,7 +118,7 @@ class pagePayment extends model\pageTemplate
 						<label>Phone Number</label>
 						<input type="text" name="phNum" required></br>
 						</select></br>
-						<button type="submit" name="page" value="pageRegister">Register Card</button>
+						<button type="submit" name="page" value="pagePayment">Register Card</button>
 					</form>
 				</div>
 				';

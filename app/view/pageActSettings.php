@@ -282,7 +282,7 @@ class pageActSettings extends model\pageTemplate{
 				$stmt->bindParam(':desc', $desc);
 				$stmt->bindParam(':price', $price);
 				$stmt->bindParam(':name', $name);
-				$stmt->bindParam(':img', $fTemp);
+				$stmt->bindParam(':img', $fContent);
 				$stmt->bindParam(':date', $timeStr);
 				$stmt->execute();
 				$this->db->commit();

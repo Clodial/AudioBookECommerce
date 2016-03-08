@@ -72,3 +72,4 @@ create table order_item_detail(
 	FOREIGN KEY(order_ID) REFERENCES `order`(order_ID),
 	FOREIGN KEY(item_ID) REFERENCES inventory(item_ID)
 )ENGINE=InnoDB;
+

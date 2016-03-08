@@ -74,7 +74,6 @@ class pageItem extends model\pageTemplate{
 				$stmt->bindParam(':act', $_REQUEST['username']);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						echo 'yo';
 						$card = $data[0];
 					}
 				}
@@ -139,7 +138,7 @@ class pageItem extends model\pageTemplate{
 							$itemID = $data[0];
 						}
 					}
-					$stmt = $this->db->prepare('delete from cart_item where item_ID = :itemID');
+					$stmt = $this->db->prepare('delete from order_item_detail where item_ID = :itemID');
 					$stmt->bindParam(':itemID',$itemID);
 					$stmt->execute();
 					$stmt = $this->db->prepare('delete from inventory where item_name = :item');

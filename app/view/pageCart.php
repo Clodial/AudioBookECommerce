@@ -20,6 +20,20 @@ class pageCart extends model\pageTemplate{
 	public function getBody(){
 	
 		if(isset($_SESSION['username']) && isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
+			
+			if(isset($_REQUEST['cItem']) && isset($_REQUEST['delItem'])){
+				try{
+					$this->db->beginTransaction();
+					$stmt = $this->db->prepare('delete from order_item_detail where order_detail_ID = :ord');
+					$stmt->bindParam(':ord',$_REQUEST['cItem']);
+					$stmt->execute();
+					$this->db->commit();
+					echo '<h3>Item Removed from Cart</h3>';
+				}catch(Exception $e){
+					$this->db->rollBack();
+				}
+			}
+
 			$rowCount = 0;
 			$acName;
 			$item;
@@ -109,9 +123,10 @@ class pageCart extends model\pageTemplate{
 				}
 				echo '	<h5>Total Price: $'.$tPrice.'</h5>';
 				echo '	<input type="hidden" name="tPrice" value="'. $tPrice .'">';
-				echo '	<label>Select Payment Options</label></br>';
+				echo '	<label>Select Payment Options</label>Cash</br>';
 				$stmt = $this->db->prepare('select * from customer_payment where account_ID = :act and name_on_card != "void"');
 				$stmt->bindParam(':act', $acName);
+				echo '<input type="radio" name="card" value=""required></br>';
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
 						$rowCount += 1;
@@ -131,6 +146,8 @@ class pageCart extends model\pageTemplate{
 			}
 			echo '	</form>';
 			echo '</div>';
+		}else if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'employee'){
+			echo '<h3>Employees cannot purchase items</h3>';
 		}
 	}
 

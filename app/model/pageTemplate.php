@@ -34,6 +34,7 @@ abstract class pageTemplate{
 		echo '  	<li><button class="" type="submit" name="page" value="pageIndex">Home</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLibrary">Library</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageBrowse">Browse</button></li>';
+		echo '		<li><button class="" type="submit" name="page" value="pageChOrder">Check Orders</button></li>';
 		echo '  </ul>';
 		echo '</form>';
 
@@ -86,7 +87,7 @@ abstract class pageTemplate{
 		echo '	<ul class="nav navbar-nav nav-right">';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLogout">Logout</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageCart">Cart</button></li>';
-		echo '  	<li><button class="" type="submit" name="page" value="pagePayment">Add Payment</button></li>';
+		echo '  	<li><button class="" type="submit" name="page" value="pagePayment">Add Payment</button></li>';		echo '  	<li><button class="" type="submit" name="page" value="pageActSettings">Account Info</button></li>';
 		echo '  </ul>';
 		echo '</form>';
 

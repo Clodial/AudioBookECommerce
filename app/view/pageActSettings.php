@@ -38,7 +38,6 @@ class pageActSettings extends model\pageTemplate{
 
 			echo 'Error: You are not supposed to be on this page';			
 
-
 		}
 
 	}
@@ -200,7 +199,7 @@ class pageActSettings extends model\pageTemplate{
 			if($stmt->execute()){
 				while($data = $stmt->fetch()){
 					$rowCheck + 1;
-					echo '<option value="' . $data[0] . '"">' .  $data[1] . '</option>';
+					echo '<option value="' . $data[0] . '">' .  $data[1] . '</option>';
 				}
 			}
 		}catch(Exception $e){

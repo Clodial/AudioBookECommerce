@@ -86,6 +86,7 @@ abstract class pageTemplate{
 		echo '	<ul class="nav navbar-nav nav-right">';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLogout">Logout</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageCart">Cart</button></li>';
+		echo '  	<li><button class="" type="submit" name="page" value="pagePayment">Add Payment</button></li>';
 		echo '  </ul>';
 		echo '</form>';
 

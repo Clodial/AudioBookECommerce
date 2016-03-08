@@ -24,10 +24,16 @@ class pageItem extends model\pageTemplate{
 		$bPrice = null;
 		$bDesc = null;
 		if(isset($_REQUEST['aCart']) && isset($_SESSION['username']) && isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
-			echo $_REQUEST['aCart'];
+			
 			try{
+				//create the order
 				$item;
 				$account;
+				$card = null;
+				$date = date('Y-m-d');
+				$order = null;
+				$ordStat; // this is needed to make sure we have carted items
+
 				$stmt = $this->db->prepare('select account_ID from account where account_username = :user');
 				$stmt->bindParam(':user', $_SESSION['username']);
 				if($stmt->execute()){
@@ -42,12 +48,75 @@ class pageItem extends model\pageTemplate{
 						$item = $data[0];
 					}
 				}
+				$stmt = $this->db->prepare('select card_ID from customer_payment where account_ID = :act and name_on_card = "void"');
+				$stmt->bindParam(':act', $account);
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						$card = $data[0];
+					}
+				}
+				$stmt = $this->db->prepare('select order_status_ID from order_status where order_status = "cart"');
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						$ordStat = $data[0];
+					}
+				}
 				$this->db->beginTransaction();
-				$stmt = $this->db->prepare('
-					insert into cart_item(item_ID, account_ID) values(:item, :act);
-				');
+				if($card == null){	//Create a null card in case there isn't already one
+					$stmt = $this->db->prepare('
+						insert into customer_payment(account_ID, name_on_card, billing_address, card_number, expDate, phNum) 
+						values(:act,"void","void","void","void",0000)');
+					$stmt->bindParam(':act',$account);
+					$stmt->execute();
+				}
+				$this->db->commit();
+				$stmt = $this->db->prepare('select card_ID from customer_payment where account_ID = :act and name_on_card = "void"');
+				$stmt->bindParam(':act', $_REQUEST['username']);
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						echo 'yo';
+						$card = $data[0];
+					}
+				}
+				echo $card;
+				$this->db->beginTransaction();
+				$stmt = $this->db->prepare('select order_ID from `order` where order.card_ID = :card'); //set order to the null card to add items
+				$stmt->bindParam(':card', $card);
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						$order = $data[0];
+					}
+				}
+				echo $order;
+				if($order == null){
+					$stmt = $this->db->prepare('
+						insert into `order`(account_ID, order_status_ID, card_ID, order_date, order_total)
+						values(
+							:act,
+							:ord,
+							:card,
+							:date,
+							0)
+						');
+					$stmt->bindParam(':act',$account);
+					$stmt->bindParam(':ord',$ordStat);
+					$stmt->bindParam(':card',$card);
+					$stmt->bindParam(':date',$date);
+					$stmt->execute();
+					$stmt = $this->db->prepare('select order_ID from `order` where order.card_ID = :card'); //set order to the null card to add items
+					$stmt->bindParam(':card', $card);
+					if($stmt->execute()){
+						while($data = $stmt->fetch()){
+							$order = $data[0];
+						}
+					}
+				}
+				$stmt = $this->db->prepare('insert into order_item_detail(order_ID,item_ID,order_item_quantity)
+					values(:ord,
+						:item,
+						1)');
+				$stmt->bindParam(':ord',$order);
 				$stmt->bindParam(':item',$item);
-				$stmt->bindParam(':act',$account);
 				$stmt->execute();
 				$this->db->commit();
 				echo 'Book Successfully in Cart';

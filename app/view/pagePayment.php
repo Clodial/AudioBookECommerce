@@ -32,7 +32,7 @@ class pagePayment extends model\pageTemplate
 		else
 		{
 
-			if((isset($_REQUEST['noc']) && isset($_REQUEST['billad']) && isset($_REQUEST['ccnum']) && isset($_REQUEST['expdate']) && isset($_REQUEST['phNum'])))
+			if((isset($_REQUEST['noc']) && isset($_REQUEST['billad']) && isset($_REQUEST['ccnum']) && isset($_REQUEST['expdate']) && isset($_REQUEST['phNum'])) && $_REQUEST['noc'] != 'void')
 			{
 				/**
 				*
@@ -93,6 +93,7 @@ class pagePayment extends model\pageTemplate
 					$this->newPayment();
 				}
 			}else{
+				echo 'There was an error, please try again';
 				$this->newPayment();
 			}
 		}

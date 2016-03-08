@@ -17,42 +17,17 @@ class pageCart extends model\pageTemplate{
 		$this->db = $db;
 
 	}
-	/*
-	public function payment()
-	{
-		if(isset($_REQUEST['aCart']) && isset($_SESSION['username'])
-			&& isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer') /** Make sure the account is someone who can purchase **/
-		/*{
-			echo $_REQUEST['aCart'];
-			
-			try
-			{
-				$stmt = $this->db->prepare('delete * from cart_item where account_ID = :c_id');
-				
-				$stmt->bindParam(':c_id',$_REQUEST['c_acc_id']);
-				
-				if($stmt->execute())
-				{
-					while($data = $stmt->fetch())
-					{
-						echo 'Purchase complete';
-					}
-				}
-			}
-			catch(Exception $e)
-			{
-				echo 'Purchase failed';
-			}
-		}
-		
-	}*/
 	public function getBody(){
+	
 		if(isset($_SESSION['username']) && isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
+			$rowCount = 0;
+			$acName;
+			$item;
+			$ord;
+			$ordCart;
+			$tPrice = 0;
+			echo '<div class="leftBody">';
 			try{
-				$acName;
-				$item;
-				$tPrice = 0;
-				echo '<form method="get">';
 				$stmt = $this->db->prepare('select account_ID from account where account_username = :user');
 				$stmt->bindParam(':user', $_SESSION['username']);
 				if($stmt->execute()){
@@ -60,150 +35,102 @@ class pageCart extends model\pageTemplate{
 						$acName = $data[0];
 					}
 				}
+				$stmt = $this->db->prepare('select order_status_ID from order_status where order_status = "cart"');
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						$ordCart = $data[0];
+					}
+				}
+				//Get the user's cart
+				$stmt = $this->db->prepare('select order_ID from `order` where account_ID = :user and order_status_ID = :ordCart');
+				$stmt->bindParam(':user', $acName);
+				$stmt->bindParam(':ordCart', $ordCart);
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						$ord = $data[0];
+					}
+				}
 				//get item id
-				$stmt = $this->db->prepare('select item_ID from cart_item where account_ID = :c_id');
-				$stmt->bindParam(':c_id',$acName);
+				$stmt = $this->db->prepare('select item_ID from order_item_detail where order_ID = :ord');
+				$stmt->bindParam(':ord',$ord);
 				if($stmt->execute())
 				{
 					while($data = $stmt->fetch()){
 						$item = $data[0];
 					}
 				}
-				//get price
-				$stmt = $this->db->prepare('select inventory.item_price from cart_item, inventory where cart_item.item_ID = :item and inventory.item_ID = :item');
-				$stmt->bindParam(':item', $item);
+				$stmt = $this->db->prepare('select order_ID from `order` where account_ID = :user and order_status_ID = :ordCart');
+				$stmt->bindParam(':user', $acName);
+				$stmt->bindParam(':ordCart', $ordCart);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						$tPrice = $tPrice + $data[0];
-						echo ' <';
+						$ord = $data[0];
 					}
 				}
-				echo '	<input type="hidden" name="tPrice" value="'. $tPrice .'">';
-				$stmt = $this->db->prepare('select * from customer_payment where account_ID = :act');
+				$stmt = $this->db->prepare('select inventory.item_price, inventory.item_img, inventory.item_name, order_item_detail.order_detail_ID 
+					from order_item_detail, inventory 
+					where order_item_detail.order_ID = :ord 
+						and order_item_detail.item_ID = :item and inventory.item_ID = :item');
+				$stmt->bindParam(':item', $item);
+				$stmt->bindParam(':ord', $ord);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						echo '<input type="radio" name="card" value="'.$data[4].'">'.$data[3].'</br>';
+						echo '<div class="smallItemBody">';
+						echo '	<img src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'" height=50px width=50px/>
+								<div class="itemName">
+									<h5>'.$data[2].'</h5>
+									<p>$'.$data[0].'</p>
+								</div>';
+						echo '	<form method="post">
+									<input type="hidden" name="cItem" value="'.$data[3].'">
+									<input type="hidden" name="delItem" value="true">
+									<button type="submit" name="page" value="pageCart">Remove From Cart</button>';
+						echo ' 	</form>';
+						echo '</div>';
 					}
 				}
 
-				echo '</form>';
 			}catch(Exception $e){
 
 			}
-		}
-	}
-	public function getFace(){
+			echo '</div>';
+			echo '<div class="rightBody">';
+			echo '	<form method="get">';
+			try{
 
-		/**
-		*
-		*	1) Display Cart Items (show the total price, and show the items in a page)
-		*	2) Allow user to select payment option or update cart (ie remove specific items from cart)
-		*	3) When a user chooses to purchase items, clear out a cart and add that info to a new order with 
-		*		item order details of each item for users to look up in an order-lookup
-		*	4) Clear out payment options if there is nothing to purchase
-		*
-		**/
-		
-		$pc_item = null;
-		$pc_cost = 0;
-		$pc_img = null;
-		$pc_name = null;
-		$pc_auth = null;
-		$pc_genre = null;
-		$pc_desc = null;
-		$pc_price = null;
-		
-		$pc_cust_id = null;
-		$pc_ccnum = null;
-		
-		$pc_itemID = null;
-		
-		
-		if(isset($_SESSION['username']) && isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer') /** Make sure the account is someone who can purchase **/
-		{
-			
-			try
-			{
-				$acName;
-				$stmt = $this->db->prepare('select account_ID from account where account_username = :user');
-				$stmt->bindParam(':user', $_SESSION['username']);
+				//get price
+				$stmt = $this->db->prepare('select inventory.item_price, inventory.item_img, inventory.item_name from order_item_detail, inventory where order_item_detail.order_ID = :ord and order_item_detail.item_ID = :item and inventory.item_ID = :item');
+				$stmt->bindParam(':item', $item);
+				$stmt->bindParam(':ord', $ord);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						$acName = $data[0];
+						$tPrice = $tPrice + $data[0];
 					}
 				}
-				$stmt = $this->db->prepare('select item_ID from cart_item where account_ID = :c_id');
+				echo '	<h5>Total Price: $'.$tPrice.'</h5>';
+				echo '	<input type="hidden" name="tPrice" value="'. $tPrice .'">';
+				echo '	<label>Select Payment Options</label></br>';
+				$stmt = $this->db->prepare('select * from customer_payment where account_ID = :act and name_on_card != "void"');
+				$stmt->bindParam(':act', $acName);
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						$rowCount += 1;
+						echo '<input type="radio" name="card" value="'.$data[4].'">'.$data[3].'</br>';
+					}
+				}
 				
-				$stmt->bindParam(':c_id',$acName);
-				
-				if($stmt->execute())
-				{
-					while($data = $stmt->fetch())
-					{
-						$pc_itemID = $data[0]; /** Wherever Item ID is in the table **/
-						try
-						{
-							$stmt = $this->db->prepare("select * from inventory where item_id = :item");
-							$stmt->bindParam(':item',$pc_itemID);
-							if($stmt->execute())
-							{
-								while($data = $stmt->fetch())
-								{
-									$pc_img = $data[6];
-									$pc_name = $data[5];
-									$pc_auth = $data[2];
-									$pc_genre = $data[1];
-									$pc_desc = $data[3];
-									$pc_price = $data[4];
-									$pc_cost += $pc_price;
-									
-									echo
-									'
-									<div class = "Cart">
-										<div class = "Cart Items">
-											<h2>'.$pc_name.'</h2><br>
-											<h3>By: '.$pc_auth.'</h3>
-											<h5>'.$pc_price.'</h5><br>
-											<p>'.$pc_name.'</p><br>
-										</div>
-									</div>
-									';
-								}
-							}
-						}
-						catch(Exception $e)
-						{
-							
-						}
-						
-					}
-				}
-				try
-				{
-					$stmt = $this->db->prepare('select card_ID from customer_payment where account_ID = :acc_id');
-					$stmt->bindParam(':acc_id',$acName);
-					if($stmt->execute())
-					{
-						while($data = $stmt->fetch())
-						{
-							$pc_ccnum = data[4];
-							echo
-							'	
-								<input type=radio name="pay_option" value='.$pc_ccnum.'> '.$pc_ccnum.' <br>
-							';
-						}
-					}
-				}
-				catch(Exception $e)
-				{
-					
-				}
+			}catch(Exception $e){
+
 			}
-			catch(Exception $e)
-			{
-				$this->db->rollBack();
-				echo 'Transaction Failed: Cannot Access Cart';
+			if($rowCount == 0){
+				echo '	<h3>You do not have a card</h3>';
+				echo '	<button class="" type="submit" name="page" value="pagePayment">Add Payment Option</button>';
+			}else{
+				echo '	<input type="hidden" name="order" value="'. $ord .'">';
+				echo '	<button class="" type="submit name="page" value="pageCart">Purchase Items</button>';
 			}
+			echo '	</form>';
+			echo '</div>';
 		}
 	}
 

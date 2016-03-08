@@ -40,7 +40,7 @@ class pagePayment extends model\pageTemplate
 				*
 				**/
 
-				$id = $_SESSION['account_id'];
+				private $id; 
 				$noc = $_REQUEST['noc'];
 				$billad = $_REQUEST['billad'];
 				$ccnum = $_REQUEST['ccnum'];
@@ -52,10 +52,13 @@ class pagePayment extends model\pageTemplate
 					$this->db->beginTransaction();
 
 					$stmt = $this->db->prepare('
-							select * from customer_payment where account_id = :id;
+							select account_id from account where account_username = :name;
 							');
 
-					$stmt->bindParam(':id', $id);
+					$stmt->bindParam(':name', $_SESSION['username']);
+					while($data = $stmt->fetch()){
+							$id = $data;
+					}
 					$stmt->execute();
 					$stmt = $this->db->prepare('
 								insert into customer_payment(account_ID , name_on_card, billing_address, card_number, expDate, phNum) 

@@ -59,7 +59,29 @@ class pageItem extends model\pageTemplate{
 		}else if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'employee'){
 
 			echo 'Employees cannot buy stuff';
-
+			if(isset($_REQUEST['delete']) && isset($_REQUEST['aCart'])){
+				try{
+					$itemID;
+					$this->db->beginTransaction();
+					$stmt = $this->db->prepare('select item_ID from inventory where item_name = :item');
+					$stmt->bindParam(':item',$_REQUEST['aCart']);
+					if($stmt->execute()){
+						while($data = $stmt->fetch()){
+							$itemID = $data[0];
+						}
+					}
+					$stmt = $this->db->prepare('delete from cart_item where item_ID = :itemID');
+					$stmt->bindParam(':itemID',$itemID);
+					$stmt->execute();
+					$stmt = $this->db->prepare('delete from inventory where item_name = :item');
+					$stmt->bindParam(':item',$_REQUEST['aCart']);
+					$stmt->execute();
+					$this->db->commit();
+					echo 'This item does not exist anymore.';
+				}catch(Exception $e){
+					$this->db->rollBack();
+				}
+			}
 		}
 
 		if(isset($_REQUEST['itemName'])){
@@ -81,8 +103,9 @@ class pageItem extends model\pageTemplate{
 			}catch(Exception $e){
 
 			}
-
-			$this->buildItemPage($bImage,$bName,$bAuth,$bGenre,$bPrice,$bDesc);
+			if(!isset($_REQUEST['delete'])){
+				$this->buildItemPage($bImage,$bName,$bAuth,$bGenre,$bPrice,$bDesc);
+			}
 
 		}else{
 			echo '404: Page Not Found';
@@ -104,7 +127,6 @@ class pageItem extends model\pageTemplate{
 		}catch(Exception $e){
 
 		}
-
 		echo '
 		<div class="itemBody">
 			<div class="itemTop">
@@ -123,12 +145,20 @@ class pageItem extends model\pageTemplate{
 					<h2>Item Details</h2><br>
 					<pre>'.$desc.'</pre>
 				</div>
-			</div>
-			<form method="post">
-				<input type="hidden" name="aCart" value="'.$name.'">
-				<button type="submit" name="page" value="pageItem">Buy Item</button>
-			</form>
-		</div>';
+			</div>';
+			if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
+			echo '<form method="post">
+					<input type="hidden" name="aCart" value="'.$name.'">
+					<button type="submit" name="page" value="pageItem">Buy Item</button>
+				</form>';
+			}else if($_SESSION['actType'] == 'employee'){
+				echo '<form method="post">
+					<input type="hidden" name="aCart" value="'.$name.'">
+					<input type="hidden" name="delete" value="true">
+					<button type="submit" name="page" value="pageItem">Delete Item</button>
+				</form>';
+			}
+		echo'</div>';
 
 	}
 

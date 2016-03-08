@@ -76,3 +76,11 @@ create table order_item_detail(
 	FOREIGN KEY(item_ID) REFERENCES inventory(item_ID)
 )ENGINE=InnoDB;
 
+create table cart_item(
+	cart_ID int NOT NULL AUTO_INCREMENT,
+	item_ID int NOT NULL,
+	account_ID int NOT NULL,
+	PRIMARY KEY(cart_ID),
+	FOREIGN KEY(item_ID) REFERENCES inventory(item_ID),
+	FOREIGN KEY(account_ID) REFERENCES account(account_ID),
+)ENGINE=InnoDB;

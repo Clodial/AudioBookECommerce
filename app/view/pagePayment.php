@@ -75,7 +75,7 @@ class pagePayment extends model\pageTemplate
 							$stmt->bindParam(':noc', $noc);
 							$stmt->bindParam(':billad', $billad);
 							$stmt->bindParam(':ccnum', $ccnum);
-							$stmt->bindParam(':expDate', $expDate);
+							$stmt->bindParam(':expDate', $expdate);
 							$stmt->bindParam(':phNum', $phNum);
 							$stmt->execute(); // like a git add
 							echo '<h3>Payment Addition Successful</h3>';

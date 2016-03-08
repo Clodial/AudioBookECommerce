@@ -20,7 +20,32 @@ class pageCart extends model\pageTemplate{
 	public function getBody(){
 	
 		if(isset($_SESSION['username']) && isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
-			
+			if(isset($_REQUEST['card']) && isset($_REQUEST['tPrice']) && isset($_REQUEST['order'])){
+				try{
+					$time = date('Y-m-d');
+					$orderStatus;
+					$stmt = $this->db->prepare('select order_status_ID from order_status where order_status = "in-progress"');
+					if($stmt->execute()){
+						while($data = $stmt->fetch()){
+							$orderStatus = $data[0];
+						}
+					}
+					echo $_REQUEST['order'];
+					echo $_REQUEST['card'];
+					$this->db->beginTransaction();
+					$stmt = $this->db->prepare('update `order` set card_ID = :card, order_status_ID = :oStat, order_date = :date, order_total = :price where order_ID = :order');
+					$stmt->bindParam(':card', $_REQUEST['card']);
+					$stmt->bindParam(':oStat', $orderStatus);
+					$stmt->bindParam(':date', $time);
+					$stmt->bindParam(':price', $_REQUEST['tPrice']);
+					$stmt->bindParam(':order', $_REQUEST['order']);
+					$stmt->execute();
+					$this->db->commit();
+					echo '<h4>Purchase Successful!</h4>';
+				}catch(Exception $e){
+					$this->db->rollBack();
+				}
+			}
 			if(isset($_REQUEST['cItem']) && isset($_REQUEST['delItem'])){
 				try{
 					$this->db->beginTransaction();
@@ -123,14 +148,14 @@ class pageCart extends model\pageTemplate{
 				}
 				echo '	<h5>Total Price: $'.$tPrice.'</h5>';
 				echo '	<input type="hidden" name="tPrice" value="'. $tPrice .'">';
+				echo '	<input type="hidden" name="order" value="'. $ord .'">';
 				echo '	<label>Select Payment Options</label>Cash</br>';
 				$stmt = $this->db->prepare('select * from customer_payment where account_ID = :act and name_on_card != "void"');
 				$stmt->bindParam(':act', $acName);
-				echo '<input type="radio" name="card" value=""required></br>';
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
 						$rowCount += 1;
-						echo '<input type="radio" name="card" value="'.$data[4].'">'.$data[3].'</br>';
+						echo '<input type="radio" name="card" value="'.$data[0].'" required>'.$data[3].'</br>';
 					}
 				}
 				
@@ -142,7 +167,7 @@ class pageCart extends model\pageTemplate{
 				echo '	<button class="" type="submit" name="page" value="pagePayment">Add Payment Option</button>';
 			}else{
 				echo '	<input type="hidden" name="order" value="'. $ord .'">';
-				echo '	<button class="" type="submit name="page" value="pageCart">Purchase Items</button>';
+				echo '	<button class="" type="submit" name="page" value="pageCart">Purchase Items</button>';
 			}
 			echo '	</form>';
 			echo '</div>';

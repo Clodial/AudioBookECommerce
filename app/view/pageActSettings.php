@@ -116,7 +116,7 @@ class pageActSettings extends model\pageTemplate{
 		<div class="rightForm">
 			<h3>Payment Options</h3>
 			<form method="get">
-				<button type="submit" name="page" value="pagePay">Add Payment Options</button>
+				<button type="submit" name="page" value="pagePayment">Add Payment Options</button>
 			</form>
 		</div>';
 

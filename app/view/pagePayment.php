@@ -92,10 +92,7 @@ class pagePayment extends model\pageTemplate
 					echo '<h3>User Information is incorrect</h3>';
 					$this->newPayment();
 				}
-			}
-			echo '<h1>RANDOM ECHO STATEMENT</h1>';
-			else
-			{
+			}else{
 				$this->newPayment();
 			}
 		}

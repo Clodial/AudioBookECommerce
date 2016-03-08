@@ -15,7 +15,7 @@ spl_autoload_register('autoloader::load');
 $dbName = 'it490';
 $dbPass = 'root';
 $dbUser = 'root';
-$dbHost = 'localhost';
-$mainEmail = 'maravillamatthew@gmail.com';
+$dbHost = 'localhost:8889';
+$mainEmail = 'ajm27@njit.edu';
 
 ?>

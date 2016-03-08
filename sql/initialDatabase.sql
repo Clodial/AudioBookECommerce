@@ -19,8 +19,11 @@ create table account(
 create table customer_payment(
 	card_ID int NOT NULL AUTO_INCREMENT,
 	account_ID int NOT NULL,
+	name_on_card varchar(255) NOT NULL,
 	billing_address varchar(256) NOT NULL,
 	card_number varchar(80) NOT NULL,
+	expDate varchar(5) NOT NULL,
+	phNum int(15) NOT NULL,
 	PRIMARY KEY(card_ID),
 	FOREIGN KEY(account_ID) REFERENCES account(account_ID)
 )ENGINE=InnoDB;

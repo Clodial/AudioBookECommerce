@@ -93,6 +93,7 @@ class pagePayment extends model\pageTemplate
 					$this->newPayment();
 				}
 			}
+			echo '<h1>RANDOM ECHO STATEMENT</h1>';
 			else
 			{
 				$this->newPayment();

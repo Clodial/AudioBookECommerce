@@ -1,0 +1,27 @@
+button{
+	background:none;
+	border:none;
+	-webkit-box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+	height: 50px;
+}
+.container{
+	margin: 0 auto;
+	min-height:	1000px;
+	-webkit-box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+}
+button:hover{
+	background:black;
+	color:white;
+}
+#topNav{
+	height:50px;
+}
+.user{
+	padding-top:10px;
+	font-size: 20px;
+	vertical-align: middle;
+}

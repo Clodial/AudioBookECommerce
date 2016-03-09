@@ -35,7 +35,7 @@ abstract class pageTemplate{
 		echo '<div class="navbar col-md-12" id="topNav">';
 		echo '<form method="get">';
 		echo '  <ul class="nav navbar-nav nav-left">';
-		echo '		<li>logo</li>';
+		echo '		<li><img src="img/IT490_Logo3.png" height=50px width=50px></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageIndex">Home</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLibrary">Library</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageBrowse">Browse</button></li>';
@@ -90,6 +90,7 @@ abstract class pageTemplate{
 
 		echo '<form method="get" class="col-md-6">';
 		echo '	<ul class="nav navbar-nav nav-right">';
+		echo ' 		<li><label class="user">Welcome, '.$_SESSION['username'].'!</label</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLogout">Logout</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageCart">Cart</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pagePayment">Add Payment</button></li>';		

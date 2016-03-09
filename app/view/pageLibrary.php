@@ -45,8 +45,12 @@ class pageLibrary extends model\pageTemplate{
 			$stmt->bindParam(':user', $actID);
 			if($stmt->execute()){
 				while($data = $stmt->fetch()){
-					echo '<img src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'" height=50px width=50px/>';
-					echo '<h3>'.$data[0].'</h3>';
+					echo '<div class="col-md-8">';
+					echo '	<div class="col-md-4">';
+					echo '		<img src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'" height=50px width=50px/>';
+					echo '	</div>';
+					echo '		<h3>'.$data[0].'</h3>';
+					echo '</div>';
 				}
 			}	
 

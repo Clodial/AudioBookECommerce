@@ -77,7 +77,6 @@ class pageItem extends model\pageTemplate{
 						$card = $data[0];
 					}
 				}
-				echo $card;
 				$this->db->beginTransaction(); 
 				$stmt = $this->db->prepare('select order_ID from `order` where order.card_ID = :card'); //set order to the null card to add items
 				$stmt->bindParam(':card', $card);
@@ -86,7 +85,6 @@ class pageItem extends model\pageTemplate{
 						$order = $data[0];
 					}
 				}
-				echo $order;
 				if($order == null){
 					$stmt = $this->db->prepare('
 						insert into `order`(account_ID, order_status_ID, card_ID, order_date, order_total)
@@ -196,22 +194,22 @@ class pageItem extends model\pageTemplate{
 
 		}
 		echo '
-		<div class="itemBody">
-			<div class="itemTop">
+		<div class="itemBody col-md-12">
+			<div class="itemTop col-md-4">
 				<div class="itemPic">
 					<img src="data:image/jpeg;base64,'.base64_encode( $img ).'" height=200px width=200px/>
 				</div>
 				<div class="itemInfo">
-					<h2>'.$name.'</h2><br>
+					<h2>'.$name.'</h2>
 					<h3>By: '.$auth.'</h3>
-					<h5>'.$price.'</h5><br>
+					<h5>$'.$price.'</h5>
 					<p>'.$gName.'</p><br>
 				</div>
 			</div>
 			<div class="itemBottom">
 				<div class="itemDesc">
 					<h2>Item Details</h2><br>
-					<pre>'.$desc.'</pre>
+					<p>'.$desc.'</p>
 				</div>
 			</div>';
 			if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){

@@ -159,13 +159,41 @@ class pageChOrder extends model\pageTemplate{
 
 			}
 
-		}else{
-
-
-
 		}
 
 		$this->orderForm();
+
+		if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'employee'){
+			try{
+				$stmt = $this->db->prepare('
+					select `order`.*, order_status.order_status from `order`, order_status 
+					where (order_status.order_status = "complete" or order_status.order_status = "in-progress")
+					and `order`.order_status_ID = order_status.order_status_ID
+				');
+				if($stmt->execute()){
+					while($data = $stmt->fetch()){
+						echo '<div class="col-md-12">';
+						echo '	<div class="col-md-4"';
+						echo '		<h5>Order Number</h5>
+									<p>'.$data[0].'</p>
+									<h5>Order Date</h5>
+									<p>'.$data[4].'</p>
+								</div>
+								<div class="col-md-6">
+									<h4>Order Price</h4>
+									<p>'.$data[5].'</p>
+									<h3>Order Status</h3>
+									<p>'.$data[6].'</p>
+								</div>
+								';
+						echo '</div>';
+					}
+				}
+			}catch(Exception $e){
+
+			}
+
+		}
 
 	}
 

@@ -32,10 +32,10 @@ abstract class pageTemplate{
 		*
 		**/
 
-		echo '<div class="navbar" id="topNav">';
+		echo '<div class="navbar col-md-12" id="topNav">';
 		echo '<form method="get">';
-		echo 'This is the logo';
 		echo '  <ul class="nav navbar-nav nav-left">';
+		echo '		<li>logo</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageIndex">Home</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLibrary">Library</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageBrowse">Browse</button></li>';
@@ -88,7 +88,7 @@ abstract class pageTemplate{
 
 		//There will be a function call determining how much is in the cart to then be put after the cart number
 
-		echo '<form method="get">';
+		echo '<form method="get" class="col-md-6">';
 		echo '	<ul class="nav navbar-nav nav-right">';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLogout">Logout</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageCart">Cart</button></li>';
@@ -100,8 +100,8 @@ abstract class pageTemplate{
 	}
 	public function logBar(){
 
-		echo '<form method="get">';
-		echo '	<ul class="nav navbar-nav nav-right">';
+		echo '<form method="get" class="col-md-6">';
+		echo '	<ul class="nav navbar-nav nav-right ">';
 		echo '  	<li><button class="" type="submit" name="page" value="pageRegister">Register</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLogin">Sign In</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageActSettings">Account Info</button></li>';

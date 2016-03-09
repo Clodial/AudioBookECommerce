@@ -23,9 +23,9 @@ class pageBrowse extends model\pageTemplate
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
 						echo '
-						<div class="smItemBody">
-							<div class="miniImg"><img src="data:image/jpeg;base64,'.base64_encode( $data[6] ).'" height=100px width=100px/></div>
-							<div class="itemInfo">
+						<div class="smItemBody col-md-12">
+							<div class="miniImg col-md-4"><img src="data:image/jpeg;base64,'.base64_encode( $data[6] ).'" height=100px width=100px/></div>
+							<div class="itemInfo col-md-5">
 								<form method="get">
 									<input type="hidden" name="itemName" value="' . $data[5] . '">
 									<button type="submit" name="page" value="pageItem">'. $data[5] .'</button>
@@ -41,8 +41,8 @@ class pageBrowse extends model\pageTemplate
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
 						echo '
-						<div class="smItemBody">
-							<div class="miniImg"><img src="data:image/jpeg;base64,'.base64_encode( $data[6] ).'" height=100px width=100px/></div>
+						<div class="smItemBody col-md-12">
+							<div class="miniImg col-md-4"><img src="data:image/jpeg;base64,'.base64_encode( $data[6] ).'" height=100px width=100px/></div>
 							<div class="itemInfo">
 								<form method="get">
 									<input type="hidden" name="itemName" value="' . $data[5] . '">

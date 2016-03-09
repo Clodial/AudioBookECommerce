@@ -32,7 +32,7 @@ class pageIndex extends model\pageTemplate{
 		*	displays favorite books based on number in order_item_detail
 		*
 		**/
-		echo '<div class="indexDisplay">';
+		echo '<div class="indexDisplay col-md-12">';
 		echo '	<h3>Most Popular</h3>';
 		try{
 
@@ -44,8 +44,14 @@ class pageIndex extends model\pageTemplate{
 			limit 4');
 			if($stmt->execute()){
 				while($data = $stmt->fetch()){
+					echo '<div class="col-md-3">';
+					echo '<form class="col-md-12" method="get">';
+					echo '	<input type="hidden" name="itemName" value="'.$data[0].'">';
+					echo '	<input type="image" src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'"  alt="submit" name="page" value="pageItem" height=200px width=200px>';
+					echo '</form>';
 					echo $data[0];
 					echo $data[2];
+					echo '</div>';
 				}
 			}
 
@@ -61,15 +67,18 @@ class pageIndex extends model\pageTemplate{
 		*	displays favorite books based on what's the most recent
 		*
 		**/
-		echo '<div class="indexDisplay">';
+		echo '<div class="indexDisplay col-md-12">';
 		echo '	<h3>New Additions</h3>';
 		try{
 
 			$stmt = $this->db->prepare('select item_name, item_img, item_price from inventory order by date_added desc limit 4');
 			if($stmt->execute()){
 				while($data = $stmt->fetch()){
+					echo '<div class="col-md-3">';
+					echo '<img class="col-md-12" src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'" height=200px width=200px/>';
 					echo $data[0];
 					echo $data[2];
+					echo '</div>';
 				}
 			}
 

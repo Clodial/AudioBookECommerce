@@ -65,7 +65,7 @@ class pageCart extends model\pageTemplate{
 			$ord;
 			$ordCart;
 			$tPrice = 0;
-			echo '<div class="leftBody">';
+			echo '<div class="leftBody col-md-4">';
 			try{
 				$stmt = $this->db->prepare('select account_ID from account where account_username = :user');
 				$stmt->bindParam(':user', $_SESSION['username']);
@@ -110,12 +110,11 @@ class pageCart extends model\pageTemplate{
 					from order_item_detail, inventory 
 					where order_item_detail.order_ID = :ord
 					and order_item_detail.item_ID = inventory.item_ID');
-				echo $ord;
 				//$stmt->bindParam(':item', $item);
 				$stmt->bindParam(':ord', $ord);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						echo '<div class="smallItemBody">';
+						echo '<div class="smallItemBody col-md-8">';
 						echo '	<img src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'" height=50px width=50px/>
 								<div class="itemName">
 									<h5>'.$data[2].'</h5>
@@ -134,7 +133,7 @@ class pageCart extends model\pageTemplate{
 
 			}
 			echo '</div>';
-			echo '<div class="rightBody">';
+			echo '<div class="rightBody col-md-8">';
 			echo '	<form method="get">';
 			try{
 

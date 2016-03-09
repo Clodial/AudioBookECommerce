@@ -8,6 +8,11 @@ abstract class pageTemplate{
 	*	@brief Main template of every page, including all of the most used functions
 	*
 	****/
+	private $db;
+
+	public function __construct($db){
+		$this->db = $db;
+	}
 
 	public function get(){
 		$this->getHeader();

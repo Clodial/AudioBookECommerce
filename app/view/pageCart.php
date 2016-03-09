@@ -108,9 +108,10 @@ class pageCart extends model\pageTemplate{
 				}
 				$stmt = $this->db->prepare('select inventory.item_price, inventory.item_img, inventory.item_name, order_item_detail.order_detail_ID 
 					from order_item_detail, inventory 
-					where order_item_detail.order_ID = :ord 
-						and order_item_detail.item_ID = :item and inventory.item_ID = :item');
-				$stmt->bindParam(':item', $item);
+					where order_item_detail.order_ID = :ord
+					and order_item_detail.item_ID = inventory.item_ID');
+				echo $ord;
+				//$stmt->bindParam(':item', $item);
 				$stmt->bindParam(':ord', $ord);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
@@ -138,8 +139,11 @@ class pageCart extends model\pageTemplate{
 			try{
 
 				//get price
-				$stmt = $this->db->prepare('select inventory.item_price, inventory.item_img, inventory.item_name from order_item_detail, inventory where order_item_detail.order_ID = :ord and order_item_detail.item_ID = :item and inventory.item_ID = :item');
-				$stmt->bindParam(':item', $item);
+				$stmt = $this->db->prepare('select inventory.item_price 
+					from order_item_detail, inventory 
+					where order_item_detail.order_ID = :ord
+					and order_item_detail.item_ID = inventory.item_ID');
+				//$stmt->bindParam(':item', $item);
 				$stmt->bindParam(':ord', $ord);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){

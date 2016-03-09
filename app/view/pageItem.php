@@ -78,7 +78,7 @@ class pageItem extends model\pageTemplate{
 					}
 				}
 				echo $card;
-				$this->db->beginTransaction();
+				$this->db->beginTransaction(); 
 				$stmt = $this->db->prepare('select order_ID from `order` where order.card_ID = :card'); //set order to the null card to add items
 				$stmt->bindParam(':card', $card);
 				if($stmt->execute()){

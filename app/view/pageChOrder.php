@@ -73,7 +73,6 @@ class pageChOrder extends model\pageTemplate{
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
 						$user = $data[0];
-						echo $user;
 						$card = $data[1];
 						$stat = $data[2];
 						$price = $data[3];
@@ -96,13 +95,15 @@ class pageChOrder extends model\pageTemplate{
 						inventory.item_name, 
 						inventory.item_img
 							from order_item_detail, inventory
-							where order_item_detail.order_ID = :ord;
+							where order_item_detail.order_ID = :ord
+							and inventory.item_ID = order_item_detail.item_ID
+							group by inventory.item_name;
 					');
 					$stmt->bindParam(':ord', $_REQUEST['order']);
 					if($stmt->execute()){
 						while($data = $stmt->fetch()){
 						echo '<div class="orderItem">
-							<img src="data:image/jpeg;base64,'.base64_encode( $data[2] ).'"/>
+							<img src="data:image/jpeg;base64,'.base64_encode( $data[2] ).'" width=100px height=100px/>
 							inventory name = ' . $data[1] . ' </br>
 							quantity = ' . $data[0] . ' </br>
 						';	
@@ -118,9 +119,10 @@ class pageChOrder extends model\pageTemplate{
 						
 						if(isset($_REQUEST['ordStat'])){
 							try{
+								echo $_REQUEST['ordStat'];
 								$this->db->beginTransaction();
 								$stmt = $this->db->prepare('
-									update order 
+									update `order` 
 									set order_status_ID = :ordStat
 									where order_ID = :ord;
 								');

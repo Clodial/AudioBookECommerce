@@ -34,7 +34,7 @@ class pageLogin extends model\pageTemplate{
 						<label>Username</label>
 						<input type="text" name="username" required></br>
 						<label>Password</label>
-						<input type="text" name="password" required></br>
+						<input type="password" name="password" required></br>
 						<button type="submit" name="page" value="pageLogin">Sign In</button>
 					</form>
 					<form method="get">

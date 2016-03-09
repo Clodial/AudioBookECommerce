@@ -112,7 +112,7 @@ class pageActSettings extends model\pageTemplate{
 		**/
 
 		echo '
-		<div class="rightForm">
+		<div class="rightForm col-md-6">
 			<h3>Payment Options</h3>
 			<form method="get">
 				<button type="submit" name="page" value="pagePayment">Add Payment Options</button>
@@ -180,7 +180,7 @@ class pageActSettings extends model\pageTemplate{
 		}
 
 		echo '
-		<div class="rightForm">
+		<div class="rightForm col-md-6">
 			<h3>Add Book</h3>
 			<form method="post" enctype="multipart/form-data">
 				<label>Book Name</label>
@@ -222,7 +222,7 @@ class pageActSettings extends model\pageTemplate{
 		**/
 
 		echo '
-				<div class="logBody">
+				<div class="logBody col-md-6">
 					<h2>Update User Info</h2>
 					<form method="post">
 						<label>Email</label>

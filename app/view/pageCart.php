@@ -30,8 +30,6 @@ class pageCart extends model\pageTemplate{
 							$orderStatus = $data[0];
 						}
 					}
-					echo $_REQUEST['order'];
-					echo $_REQUEST['card'];
 					$this->db->beginTransaction();
 					$stmt = $this->db->prepare('update `order` set card_ID = :card, order_status_ID = :oStat, order_date = :date, order_total = :price where order_ID = :order');
 					$stmt->bindParam(':card', $_REQUEST['card']);
@@ -42,6 +40,12 @@ class pageCart extends model\pageTemplate{
 					$stmt->execute();
 					$this->db->commit();
 					echo '<h4>Purchase Successful!</h4>';
+					echo '<div class="rightBody">';
+					echo '	<h3>Order Number</h3>' . $_REQUEST['order'];
+					echo '	<h4>Order Price</h4>' . $_REQUEST['tPrice'];
+					echo '	<h4>Order Date</h4>' . $time;
+					echo ' 	<h5>Payment Option Used</h5>' . $_REQUEST['card'];
+					echo '</div>';
 				}catch(Exception $e){
 					$this->db->rollBack();
 				}

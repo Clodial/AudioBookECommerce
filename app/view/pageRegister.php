@@ -164,7 +164,7 @@ class pageRegister extends model\pageTemplate{
 					<h5>Welcome!</h5>
 					<form method="get">
 						<label>Email</label>
-						<input type="text" name="email" required><br>
+						<input type="email" name="email" required><br>
 						<label>Username</label>
 						<input type="text" name="username" required></br>
 						<label>Address</label>
@@ -172,9 +172,9 @@ class pageRegister extends model\pageTemplate{
 						<label>Phone Number</label>
 						<input type="text" name="number" required></br>
 						<label>Password</label>
-						<input type="text" name="password" required></br>
+						<input type="password" name="password" required></br>
 						<label>Retype Password</label>
-						<input type="text" name="rePass" required></br>
+						<input type="password" name="rePass" required></br>
 						<label>Account Type</label>
 						<select name="actType" required>
 							<option value="2">Customer</option>

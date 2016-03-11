@@ -19,7 +19,7 @@ $dbHost = 'localhost';
 
 if(null != (getenv('JAWSDB_URL'))){
 	$url = getenv('JAWSDB_URL');
-	$dbparts = parse_url($url)
+	$dbparts = parse_url($url);
 	$dbName = ltrim($dbparts['path'],'/');
 	$dbPass = $dbparts['pass'];
 	$dbUser = $dbparts['user'];

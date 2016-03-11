@@ -18,10 +18,12 @@ $dbUser = 'root';
 $dbHost = 'localhost';
 
 if(null != (getenv('JAWSDB_URL'))){
-	$dbName = getenv('NAME');
-	$dbPass = getenv('PASS');
-	$dbUser = getenv('USER');
-	$dbHost = getenv('HOST');
+	$url = getenv('JAWSDB_URL');
+	$dbparts = parse_url($url)
+	$dbName = ltrim($dbparts['path'],'/');
+	$dbPass = $dbparts['pass'];
+	$dbUser = $dbparts['user'];
+	$dbHost = $dbparts['host'];
 }
 
 $mainEmail = 'ajm27@njit.edu';

@@ -12,17 +12,18 @@ ini_set('display_errors','On');
 include('app/autoloader.php');
 spl_autoload_register('autoloader::load');
 
-echo "yo";
-
-if(null != (getenv('JAWSDB_URL'))){
-	echo getenv('JAWSDB_URL');
-	echo extract(parse_url(getenv("JAWSDB_URL")));
-}
-
 $dbName = 'it490';
 $dbPass = 'root';
 $dbUser = 'root';
 $dbHost = 'localhost';
+
+if(null != (getenv('JAWSDB_URL'))){
+	$dbName = getenv('NAME');
+	$dbPass = getenv('PASS');
+	$dbUser = getenv('USER');
+	$dbHost = getenv('HOST');
+}
+
 $mainEmail = 'ajm27@njit.edu';
 
 ?>

@@ -15,6 +15,7 @@ spl_autoload_register('autoloader::load');
 echo "yo";
 
 if(null != (getenv('JAWSDB_URL'))){
+	echo getenv('JAWSDB_URL');
 	echo extract(parse_url(getenv("JAWSDB_URL")));
 }
 

@@ -49,8 +49,8 @@ class pageIndex extends model\pageTemplate{
 					echo '	<input type="hidden" name="itemName" value="'.$data[0].'">';
 					echo '	<input type="image" src="data:image/jpeg;base64,'.base64_encode( $data[1] ).'"  alt="submit" name="page" value="pageItem" height=200px width=200px>';
 					echo '</form>';
-					echo $data[0];
-					echo $data[2];
+					echo $data[0].' ';
+					echo '$'.$data[2];
 					echo '</div>';
 				}
 			}

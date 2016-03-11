@@ -12,8 +12,8 @@ ini_set('display_errors','On');
 include('app/autoloader.php');
 spl_autoload_register('autoloader::load');
 
-if(null != (getenv('DATABASE_URL'))){
-	echo extract(parse_url(getenv("DATABASE_URL")));
+if(null != (getenv('JAWSDB_URL'))){
+	echo extract(parse_url(getenv("JAWSDB_URL")));
 }
 
 $dbName = 'it490';

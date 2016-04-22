@@ -1,3 +1,5 @@
+drop table if exists account_type, account, customer_payment, genre, inventory, order_status, full_order, order_item_detail cascade;
+
 create table account_type(
 	account_type_ID int NOT NULL,
 	account_type varchar(56) NOT NULL,
@@ -53,7 +55,7 @@ create table order_status(
 	PRIMARY KEY(order_status_ID)
 )ENGINE=InnoDB;
 
-create table `order`(
+create table full_order(
 	order_ID int NOT NULL AUTO_INCREMENT,
 	account_ID int NOT NULL,
 	order_status_ID int NOT NULL,

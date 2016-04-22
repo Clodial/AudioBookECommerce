@@ -18,7 +18,7 @@ session_start();
 <?php
 
 include("app/model/dbConnect.php");
-
+echo $_SERVER['SERVER_NAME'];
 $db = NULL;
 
 try{

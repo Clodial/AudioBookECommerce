@@ -79,7 +79,7 @@ class pageRegister extends model\pageTemplate{
 					if(!($custCheck > 0)){
 						try{
 							$this->db->beginTransaction();
-							$stmt = $this->db->prepare('insert into account_type values("2", "customer")');
+							$stmt = $this->db->prepare('insert into account_type values("0", "customer")');
 							if($stmt->execute()){
 								echo "did it";
 							}

@@ -17,21 +17,8 @@ session_start();
 <div class="container">
 <?php
 include("app/model/dbConnect.php");
-function bookAPIuse($url, $function, $index) {
-	$funArr = array('function' => $function, 'index' => $index);
-    $postStr = http_build_query($funArr);
-	//curl to the api link
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postStr);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $data = curl_exec($ch);
-    curl_close($ch);
-    return $data;
-}
 
-echo bookAPIuse("http://audio-book-it490.herokuapp.com/api/v1/bookApi.php",'test',0);
+//echo bookAPIuse("http://audio-book-it490.herokuapp.com/api/v1/bookApi.php",'test',0);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
 $db = NULL;
 
@@ -47,6 +34,21 @@ use app\view as View;
 $main = new Model\main($db);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'updateOrder', 10);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
+
+function bookAPIuse($url, $function, $index) {
+	$funArr = array('function' => $function, 'index' => $index);
+    $postStr = http_build_query($funArr);
+	//curl to the api link
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postStr);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
+
 ?>
 </div>
 

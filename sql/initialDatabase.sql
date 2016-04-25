@@ -1,7 +1,6 @@
-drop table if exists account_type, account, customer_payment, genre, inventory, order_status, full_order, order_item_detail cascade;
-
+drop table if exists order_item_detail,`order`, order_status, inventory, genre, customer_payment, account, account_type cascade;
 create table account_type(
-	account_type_ID int NOT NULL,
+	account_type_ID int NOT NULL AUTO_INCREMENT,
 	account_type varchar(56) NOT NULL,
 	PRIMARY KEY(account_type_ID)
 )ENGINE=InnoDB;
@@ -55,7 +54,7 @@ create table order_status(
 	PRIMARY KEY(order_status_ID)
 )ENGINE=InnoDB;
 
-create table full_order(
+create table `order`(
 	order_ID int NOT NULL AUTO_INCREMENT,
 	account_ID int NOT NULL,
 	order_status_ID int NOT NULL,
@@ -77,3 +76,7 @@ create table order_item_detail(
 	FOREIGN KEY(order_ID) REFERENCES `order`(order_ID),
 	FOREIGN KEY(item_ID) REFERENCES inventory(item_ID)
 )ENGINE=InnoDB;
+
+insert into genre(genre_name) values ("Fiction"), ("Non-Fiction"), ("Mystery"), ("Warriors Basketball"), ("Why Lebron is Awful");
+insert into order_status(order_status) values ("in-progress"), ("complete"), ("canned"), ("cart");
+insert into account_type(account_type) values ("customer"), ("employee");

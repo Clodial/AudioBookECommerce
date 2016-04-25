@@ -18,7 +18,8 @@ session_start();
 <?php
 
 include("app/model/dbConnect.php");
-echo $_SERVER['SERVER_NAME'];
+include("api/v1/bookApi.php");
+
 $db = NULL;
 
 try{
@@ -31,8 +32,8 @@ try{
 
 use app\model as Model;
 use app\view as View;
+$apiTest = new bookApi();
 $main = new Model\main($db);
-
 ?>
 </div>
 

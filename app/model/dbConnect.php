@@ -12,10 +12,10 @@ ini_set('display_errors','On');
 include('app/autoloader.php');
 spl_autoload_register('autoloader::load');
 
-$dbName = 'mdm39';
-$dbPass = 'seminole9';
-$dbUser = 'mdm39';
-$dbHost = 'sql2.njit.edu';
+$dbName = 'it490';
+$dbPass = 'root';
+$dbUser = 'root';
+$dbHost = 'localhost';
 
 if(null != (getenv('JAWSDB_URL'))){
 	$url = getenv('JAWSDB_URL');

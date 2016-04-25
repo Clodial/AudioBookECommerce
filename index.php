@@ -17,8 +17,10 @@ session_start();
 <div class="container">
 <?php
 
+$apiLink = curl_init("https://localhost/AudioBookIT490/api/v1/");
+
 include("app/model/dbConnect.php");
-include("api/v1/bookApi.php");
+//include("https://localhost/AudioBookIT490/api/v1/bookApi.php");
 
 $db = NULL;
 
@@ -32,9 +34,9 @@ try{
 
 use app\model as Model;
 use app\view as View;
-$apiTest = new bookApi();
+//$apiTest = new $apiLink->bookApi();
 $main = new Model\main($db);
-echo $apiTest->getOrderData();
+//echo $apiTest->getOrderData();
 ?>
 </div>
 

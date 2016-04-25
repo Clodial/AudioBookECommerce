@@ -1,35 +1,39 @@
 <?php
-class bookApi{
+require_once 'apiAb.php'
+class bookApi extends API{
 
-	//create connection
-	private $apiDb = NULL;
+	protected $User;
 
-	public function __construct(){
-		//initialize $db object, error out otherwise
-		$apiName = 'mdm39';
-		$apiPass = 'seminole9';
-		$apiUser = 'mdm39';
-		$apiHost = 'sql2.njit.edu';
-		$mainEmail = 'maravillamatthew@gmail.com';
+    public function __construct($request, $origin) {
+        parent::__construct($request);
 
-		try{
-			$apiDb = new PDO("mysql:host=$apiHost;dbname=$apiName", $apiUser, $apiPass);
-			$apiDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		}catch(Exception $e){
-			echo $e->getMessage();
-		}
-	}
+        // Abstracted out for example
+        $APIKey = new Models\APIKey();
+        $User = new Models\User();
 
-	public function useMethod(){
+        if (!array_key_exists('apiKey', $this->request)) {
+            throw new Exception('No API Key provided');
+        } else if (!$APIKey->verifyKey($this->request['apiKey'], $origin)) {
+            throw new Exception('Invalid API Key');
+        } else if (array_key_exists('token', $this->request) &&
+             !$User->get('token', $this->request['token'])) {
 
-		echo 'yo yo yo yo yo bro';
+            throw new Exception('Invalid User Token');
+        }
 
-	}
+        $this->User = $User;
+    }
 
-	public function getOrderData(){
-		//Get the necessary account data and address data of a user
-		printf($apiDb);
-	}
+    /**
+     * Example of an Endpoint
+     */
+     protected function example() {
+        if ($this->method == 'GET') {
+            return "Your name is " . $this->User->name;
+        } else {
+            return "Only accepts GET requests";
+        }
+     }
 
 }
 

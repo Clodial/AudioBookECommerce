@@ -31,7 +31,7 @@ function bookAPIuse($url, $function, $index) {
     return $data;
 }
 
-//$test = bookAPIuse("http://audio-book-it490.herokuapp.com/api/v1/bookApi.php",'test');
+echo bookAPIuse("http://audio-book-it490.herokuapp.com/api/v1/bookApi.php",'test',0);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
 $db = NULL;
 

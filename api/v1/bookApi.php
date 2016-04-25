@@ -10,9 +10,9 @@ if(null != (getenv('JAWSDB_URL'))){
 	$url = getenv('JAWSDB_URL');
 	$apiparts = parse_url($url);
 	$apiName = ltrim($apiparts['path'],'/');
-	$apiPass = $dbparts['pass'];
-	$apiUser = $dbparts['user'];
-	$apiHost = $dbparts['host'];
+	$apiPass = $apiparts['pass'];
+	$apiUser = $apiparts['user'];
+	$apiHost = $apiparts['host'];
 }
 $dbApi = NULL;
 try{

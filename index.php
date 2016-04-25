@@ -34,6 +34,7 @@ use app\model as Model;
 use app\view as View;
 $apiTest = new bookApi();
 $main = new Model\main($db);
+echo $apiTest->getOrderData();
 ?>
 </div>
 

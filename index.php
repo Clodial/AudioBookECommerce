@@ -32,7 +32,7 @@ function getter($url) {
     return $data;
 }
 
-echo getter("http://localhost/AudioBookIT490/api/v1/bookApi.php");
+echo getter("https://audio-book-it490.herokuapp.com/api/v1/bookApi.php");
 //echo file_get_contents("http://localhost/AudioBookIT490/api/v1/bookApi.php");
 //fopen("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'r', 1);
 

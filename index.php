@@ -17,10 +17,24 @@ session_start();
 <div class="container">
 <?php
 
-$apiLink = curl_init("https://localhost/AudioBookIT490/api/v1/");
-
+//include (htmlentities(file_get_contents("http://localhost/AudioBookIT490/api/v1/bookApi.php")));
 include("app/model/dbConnect.php");
-//include("https://localhost/AudioBookIT490/api/v1/bookApi.php");
+
+function getter($url) {
+    $ch = curl_init();
+    echo $url;
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
+
+echo getter("http://localhost/AudioBookIT490/api/v1/bookApi.php");
+//echo file_get_contents("http://localhost/AudioBookIT490/api/v1/bookApi.php");
+//fopen("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'r', 1);
 
 $db = NULL;
 
@@ -31,12 +45,13 @@ try{
 }catch( PDOException $e){
 	echo $e->getMessage();
 }
-
+echo test();
 use app\model as Model;
 use app\view as View;
-//$apiTest = new $apiLink->bookApi();
+$apiTest = new bookApi();
 $main = new Model\main($db);
 //echo $apiTest->getOrderData();
+
 ?>
 </div>
 

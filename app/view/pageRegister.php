@@ -67,7 +67,7 @@ class pageRegister extends model\pageTemplate{
 					if(!($empCheck > 0)){
 						try{
 							$this->db->beginTransaction();
-							$stmt = $this->db->prepare('insert into account_type values("1", "employee")');
+							$stmt = $this->db->prepare('insert into account_type values("2", "employee")');
 							if($stmt->execute()){
 								echo "did it";
 							}
@@ -79,7 +79,7 @@ class pageRegister extends model\pageTemplate{
 					if(!($custCheck > 0)){
 						try{
 							$this->db->beginTransaction();
-							$stmt = $this->db->prepare('insert into account_type values("0", "customer")');
+							$stmt = $this->db->prepare('insert into account_type values("1", "customer")');
 							if($stmt->execute()){
 								echo "did it";
 							}
@@ -177,8 +177,8 @@ class pageRegister extends model\pageTemplate{
 						<input type="password" name="rePass" required></br>
 						<label>Account Type</label>
 						<select name="actType" required>
-							<option value="2">Customer</option>
-							<option value="1">Employee</option>
+							<option value="1">Customer</option>
+							<option value="2">Employee</option>
 						</select></br>
 						<button type="submit" name="page" value="pageRegister">Register</button>
 					</form>

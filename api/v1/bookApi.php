@@ -1,25 +1,17 @@
 <?php
-class bookApi{
 
-	//protected $User;
-
-    public function __construct() {
-        
-    	echo "yolio";
-        
-    }
-
-    /**
-     * Example of an Endpoint
-     */
-     
-
-
+if(isset($_POST['function'])){
+	switch ($_POST['function']){
+		case 'test':
+			test(); 
+	}
 
 }
 
 function test(){
 	echo "hi";
 }
+
+
 
 ?>

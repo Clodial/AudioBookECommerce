@@ -16,26 +16,23 @@ session_start();
 
 <div class="container">
 <?php
-
-//include (htmlentities(file_get_contents("http://localhost/AudioBookIT490/api/v1/bookApi.php")));
 include("app/model/dbConnect.php");
-
-function getter($url) {
+function bookAPIuse($url, $function) {
     $ch = curl_init();
-    echo $url;
+    $funArr ='function=' . $function;
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $funArr);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
     $data = curl_exec($ch);
     curl_close($ch);
     return $data;
 }
 
-echo file_get_contents("https://audio-book-it490.herokuapp.com/api/v1/bookApi.php");
-//echo file_get_contents("http://localhost/AudioBookIT490/api/v1/bookApi.php");
+echo bookAPIuse("http://audio-book-it490/api/v1/bookApi.php",'test');
+//echo file_get_contents("http://localhost/AudioBookIT490/api/v1/bookApi.php", true);
+//$file = getter("http://localhost/AudioBookIT490/api/v1/api.php");
 //fopen("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'r', 1);
-
 $db = NULL;
 
 try{
@@ -45,10 +42,10 @@ try{
 }catch( PDOException $e){
 	echo $e->getMessage();
 }
-echo test();
+//echo test();
 use app\model as Model;
 use app\view as View;
-$apiTest = new bookApi();
+//$apiTest = new bookApi();
 $main = new Model\main($db);
 //echo $apiTest->getOrderData();
 

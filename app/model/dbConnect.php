@@ -9,6 +9,8 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors','On');
+ini_set('allow_url_include', '1');
+echo ini_get("allow_url_include");
 include('app/autoloader.php');
 spl_autoload_register('autoloader::load');
 

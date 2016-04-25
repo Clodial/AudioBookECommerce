@@ -36,7 +36,20 @@ if(isset($_POST['function'])){
 			}
 			break;
 	}
-
+}else if(isset($_GET['function'])){
+	switch ($_GET['function']){
+		case 'test':
+			test(); 
+			break;
+		case 'addressData':
+			addressData($dbApi);
+			break;
+		case 'updateOrder':
+			if(isset($_GET['index']) && $_GET['index'] != 'none'){
+				updateOrder($dbApi, intval($_GET['index']));
+			}
+			break;
+	}
 }
 
 function test(){

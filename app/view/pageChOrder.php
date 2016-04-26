@@ -37,7 +37,7 @@ class pageChOrder extends model\pageTemplate{
 				}
 			}
 		}
-		
+
 		$this->orderForm();
 
 		if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'employee'){
@@ -195,7 +195,7 @@ class pageChOrder extends model\pageTemplate{
 					<div class="formBody">
 						<form method="post">
 							<label>Update Order Status</label>';
-					$flights = echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'test', 0, 0);
+					$flights = bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'test', 0, 0);
 					echo $flights;
 					echo		'<select name="ordStat">';
 					$stmt = $this->db->prepare('

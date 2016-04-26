@@ -18,23 +18,6 @@ session_start();
 <?php
 include("app/model/dbConnect.php");
 
-//echo bookAPIuse("http://audio-book-it490.herokuapp.com/api/v1/bookApi.php",'test',0);
-//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
-$db = NULL;
-
-try{
-	$db = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-}catch( PDOException $e){
-	echo $e->getMessage();
-}
-use app\model as Model;
-use app\view as View;
-$main = new Model\main($db);
-//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'updateOrder', 10);
-//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
-
 function bookAPIuse($url, $function, $index) {
 	$funArr = array('function' => $function, 'index' => $index);
     $postStr = http_build_query($funArr);
@@ -48,6 +31,23 @@ function bookAPIuse($url, $function, $index) {
     curl_close($ch);
     return $data;
 }
+
+echo bookAPIuse('https://web.njit.edu/~cmn6/IT490/testApi.php', 'test', 0);
+//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
+
+$db = NULL;
+try{
+	$db = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+}catch( PDOException $e){
+	echo $e->getMessage();
+}
+use app\model as Model;
+use app\view as View;
+$main = new Model\main($db);
+//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'updateOrder', 10);
+//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
 
 ?>
 </div>

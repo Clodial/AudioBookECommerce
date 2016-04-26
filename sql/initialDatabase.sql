@@ -61,6 +61,7 @@ create table `order`(
 	card_ID int NOT NULL,
 	order_date date NOT NULL,
 	order_total decimal(10,2) NOT NULL,
+	flight_num int,
 	PRIMARY KEY(order_ID),
 	FOREIGN KEY(account_ID) REFERENCES account(account_ID),
 	FOREIGN KEY(order_status_ID) REFERENCES order_status(order_status_ID),
@@ -80,3 +81,4 @@ create table order_item_detail(
 insert into genre(genre_name) values ("Fiction"), ("Non-Fiction"), ("Mystery"), ("Warriors Basketball"), ("Why Lebron is Awful");
 insert into order_status(order_status) values ("in-progress"), ("complete"), ("canned"), ("cart");
 insert into account_type(account_type) values ("customer"), ("employee");
+

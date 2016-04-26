@@ -169,7 +169,7 @@ class pageRegister extends model\pageTemplate{
 						<input type="text" name="username" required></br>
 						<label>Address</label>
 						<select name="address">';
-						$addArr = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getAddress', 0, 0));
+						$addArr = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
 						foreach($addArr as $key => $value){
 							echo '<option value=' . $value . '>' . $value . '</option>'; 
 						}

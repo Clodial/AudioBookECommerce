@@ -32,13 +32,13 @@ use app\model as Model;
 use app\view as View;
 $main = new Model\main($db);
 echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'test', 0, 0, 0);
-echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'checkAvailable', 0);
+//echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'checkAvailable', 0);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'updateOrder', 10);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
 
 
 function bookAPIuse($url, $function, $index, $flNum) {
-	$funArr = array('function' => $function, 'index' => $index, 'flNum' => $flNum, 'ordNum' => $ordNum);
+	$funArr = array('function' => $function, 'index' => $index, 'flNum' => $flNum);
     $postStr = http_build_query($funArr);
 	//curl to the api link
     $ch = curl_init();

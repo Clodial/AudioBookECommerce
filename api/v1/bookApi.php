@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors','On');
 
+//database connectivity variables
 $apiName = 'it490';
 $apiPass = 'root';
 $apiUser = 'root';
@@ -16,12 +17,14 @@ if(null != (getenv('JAWSDB_URL'))){
 }
 $dbApi = NULL;
 try{
+	// create the database object capable of doing mysql database calls
 	$dbApi = new PDO("mysql:host=$apiHost;dbname=$apiName", $apiUser, $apiPass);
 	$dbApi->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }catch( PDOException $e){
 	echo $e->getMessage();
 }
 
+// route which function the user needs to use
 if(isset($_POST['function'])){
 	switch ($_POST['function']){
 		case 'test':
@@ -37,6 +40,7 @@ if(isset($_POST['function'])){
 			break;
 	}
 }else if(isset($_GET['function'])){
+	//route in case the user wants to do things via their web browser without a web front end to connect to it
 	switch ($_GET['function']){
 		case 'test':
 			test(); 
@@ -52,6 +56,7 @@ if(isset($_POST['function'])){
 	}
 }
 
+// the basic test function
 function test(){
 	$testArr = array('test' => 'works');
 	$testVal = json_encode($testArr);

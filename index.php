@@ -23,6 +23,7 @@ function bookAPIuse($url, $function, $index) {
     $postStr = http_build_query($funArr);
 	//curl to the api link
     $ch = curl_init();
+    //curl_setopt($ch, CURLOPT_PORT, 8088);
     curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postStr);
@@ -32,8 +33,9 @@ function bookAPIuse($url, $function, $index) {
     return $data;
 }
 
-echo bookAPIuse('https://web.njit.edu/~cmn6/IT490/testApi.php', 'test', 0);
-//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
+echo bookAPIuse("https://web.njit.edu/~mdm39/AudioBookECommerce/api/v1/bookApi.php", 'test', 0);
+echo bookAPIuse("https://web.njit.edu/~mdm39/AudioBookECommerce/api/v1/bookApi.php", 'checkAvailable', 0);
+//echo bookAPIuse("https://audio-book-it490.herokuapp.com/api/v1/bookApi.php", 'test', 0);
 
 $db = NULL;
 try{

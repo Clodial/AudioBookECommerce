@@ -31,7 +31,7 @@ try{
 use app\model as Model;
 use app\view as View;
 $main = new Model\main($db);
-echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'test', 0, 0, 0);
+echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'test', 6, 0);
 //echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'checkAvailable', 0);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'updateOrder', 10);
 //echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);

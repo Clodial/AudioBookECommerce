@@ -209,5 +209,17 @@ function searchByOrd($dbUse, $index){
 
 	echo json_encode($ordArr);
 }
+
+function getAddress($dbUse){
+	$addArr = array();
+	$apiStmt = $dbUse->prepare('
+		select destName from flightDest');
+	if($apiStmt->execute()){
+		while($data = $apiStmt->fetch()){
+			array_push($addArr, $data[0]);
+		}
+	}
+	echo json_encode($addArr);
+}
 */
 ?>

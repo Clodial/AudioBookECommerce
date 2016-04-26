@@ -29,12 +29,16 @@ class pageChOrder extends model\pageTemplate{
 		if(isset($_REQUEST['all'])){
 
 			$orderArray = array();
-			$stmt = $this->db->prepare('
-				select order_ID from `order');
-			if($stmt->execute()){
-				while($order = $stmt->fetch()){
-					$this->displayOrder($order);
+			try{
+				$stmt = $this->db->prepare('
+					select order_ID from `order');
+				if($stmt->execute()){
+					while($order = $stmt->fetch()){
+						$this->displayOrder($order);
+					}
 				}
+			}catch(PDOException $e){
+				
 			}
 		}
 
@@ -195,7 +199,7 @@ class pageChOrder extends model\pageTemplate{
 					<div class="formBody">
 						<form method="post">
 							<label>Update Order Status</label>';
-					$flights = bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", '', 0, 0);
+					$flights = bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getAddress', 0, 0);
 					echo		'<select name="ordStat">';
 					$stmt = $this->db->prepare('
 						select * from order_status;');

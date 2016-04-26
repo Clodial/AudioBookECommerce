@@ -31,14 +31,14 @@ class pageChOrder extends model\pageTemplate{
 			$orderArray = array();
 			try{
 				$stmt = $this->db->prepare('
-					select order_ID from `order');
+					select order_ID from `order`');
 				if($stmt->execute()){
 					while($order = $stmt->fetch()){
 						$this->displayOrder($order);
 					}
 				}
 			}catch(PDOException $e){
-				
+
 			}
 		}
 

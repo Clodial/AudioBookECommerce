@@ -200,6 +200,7 @@ class pageChOrder extends model\pageTemplate{
 						<form method="post">
 							<label>Update Order Status</label>';
 					$flights = bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getAddress', 0, 0);
+					echo $flights;
 					echo		'<select name="ordStat">';
 					$stmt = $this->db->prepare('
 						select * from order_status;');

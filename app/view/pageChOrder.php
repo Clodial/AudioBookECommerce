@@ -215,7 +215,7 @@ class pageChOrder extends model\pageTemplate{
 
 				}
 			}
-		}catch(Exception $e){
+		}catch(PDOException $e){
 
 		}
 

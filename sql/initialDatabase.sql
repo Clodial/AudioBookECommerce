@@ -42,7 +42,7 @@ create table inventory(
 	item_details varchar(256),
 	item_price decimal(10,2) NOT NULL,
 	item_name varchar(255) NOT NULL,
-	item_img varchar(255) NOT NULL,
+	item_img blob NOT NULL,
 	date_added date NOT NULL,
 	PRIMARY KEY(item_ID),
 	FOREIGN KEY(genre_ID) REFERENCES genre(genre_ID)

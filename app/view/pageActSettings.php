@@ -189,7 +189,12 @@ class pageActSettings extends model\pageTemplate{
 						<label>Email</label>
 						<input type="text" name="email" required><br>
 						<label>Address</label>
-						<select </br>
+						<select name="address">';
+						$addArr = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getAddress', 0, 0));
+						foreach($addArr as $key => $value){
+							echo '<option value=' . $value . '>' . $value . '</option>'; 
+						}
+		echo			'</select></br>
 						<label>Phone Number</label>
 						<input type="text" name="number" required></br>
 						<label>Password</label>

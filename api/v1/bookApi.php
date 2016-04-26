@@ -24,6 +24,7 @@ try{
 	echo $e->getMessage();
 }
 
+
 // route which function the user needs to use
 if(isset($_POST['function'])){
 	switch ($_POST['function']){
@@ -196,6 +197,7 @@ function getFlight($dbUse){
 // part 4
 function searchByOrd($dbUse, $index){
 	$ordArr = array();
+	$indCh = strval($index);
 	$apiStmt = $dbUse->prepare('
 		select Flight_NUM from CargoTable where Skid_CONTENT = :ord');
 	$apiStmt->bindParam(':ord', $index);

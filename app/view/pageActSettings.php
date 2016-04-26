@@ -140,45 +140,6 @@ class pageActSettings extends model\pageTemplate{
 
 		}
 
-		try{
-			//This is so people don't have to add new stuff whilly nilly manually
-			$rowCheck = 0;
-			$stmt = $this->db->prepare('select * from genre');
-			if($stmt->execute()){
-				while($data = $stmt->fetch()){
-					$rowCheck = $rowCheck + 1;
-				}
-			}
-
-			if(!($rowCheck > 0)){
-				try{
-
-					$this->db->beginTransaction();
-
-					$stmt = $this->db->prepare('insert into genre(genre_name) values("Fiction");');
-					$stmt->execute();
-					$stmt = $this->db->prepare('insert into genre(genre_name) values("Sci-Fi");');
-					$stmt->execute();
-					$stmt = $this->db->prepare('insert into genre(genre_name) values("Drama");');
-					$stmt->execute();
-					$stmt = $this->db->prepare('insert into genre(genre_name) values("NonFiction");');
-					$stmt->execute();
-					$stmt = $this->db->prepare('insert into genre(genre_name) values("Mystery");');
-					$stmt->execute();
-
-					$this->db->commit();
-
-				}catch(Exception $e){
-
-					$this->db->rollBack();
-
-				}
-
-			}
-		}catch(Exception $e){
-
-		}
-
 		echo '
 		<div class="rightForm col-md-6">
 			<h3>Add Book</h3>
@@ -228,7 +189,7 @@ class pageActSettings extends model\pageTemplate{
 						<label>Email</label>
 						<input type="text" name="email" required><br>
 						<label>Address</label>
-						<input type="text" name="address" required></br>
+						<select </br>
 						<label>Phone Number</label>
 						<input type="text" name="number" required></br>
 						<label>Password</label>

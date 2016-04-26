@@ -34,7 +34,7 @@ class pageChOrder extends model\pageTemplate{
 					select order_ID from `order`');
 				if($stmt->execute()){
 					while($order = $stmt->fetch()){
-						$this->displayOrder($order);
+						$this->displayOrder($order[0]);
 					}
 				}
 			}catch(PDOException $e){

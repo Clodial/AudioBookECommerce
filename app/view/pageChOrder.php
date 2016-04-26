@@ -36,7 +36,8 @@ class pageChOrder extends model\pageTemplate{
 					$this->displayOrder($order);
 				}
 			}
-
+		}
+		
 		$this->orderForm();
 
 		if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'employee'){

@@ -199,7 +199,7 @@ class pageChOrder extends model\pageTemplate{
 					<div class="formBody">
 						<form method="post">
 							<label>Update Order Status</label>';
-					$flights = bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getAddress', 0, 0);
+					$flights = bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0);
 					echo $flights;
 					echo		'<select name="ordStat">';
 					$stmt = $this->db->prepare('

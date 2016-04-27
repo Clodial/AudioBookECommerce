@@ -100,6 +100,7 @@ class pageChOrder extends model\pageTemplate{
 	}
 	public function displayOrder($orderId){
 
+		$flightNum = '';
 		try{
 			$rowCheck = 0;
 			$user = '';
@@ -109,7 +110,7 @@ class pageChOrder extends model\pageTemplate{
 			$date = '';
 			$stmt = $this->db->prepare('
 				select 
-				account.account_username, customer_payment.card_number, order_status.order_status, `order`.order_total, `order`.order_date  
+				account.account_username, customer_payment.card_number, order_status.order_status, `order`.order_total, `order`.order_date, `order`.flight_num  
 				from `order`, account, customer_payment, order_status 
 				where `order`.order_ID = :order
 					and `order`.account_ID = account.account_ID
@@ -125,6 +126,7 @@ class pageChOrder extends model\pageTemplate{
 					$stat = $data[2];
 					$price = $data[3];
 					$date = $data[4];
+					$flightNum = $data[5];
 					$rowCheck += 1;
 				}
 			}
@@ -206,11 +208,13 @@ class pageChOrder extends model\pageTemplate{
 						<form method="post">
 							<label>Update Order and Flight statuses</label></br>';
 					 $flights = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
+					if($flightNum == ''){
 					echo '		<select name="flightNum">';
 					foreach($flights as list($flNumber, $dest)){
 						echo '<option value=' . $flNumber . '>Flight Number: ' . $flNumber . ' Going to Location: ' . $dest . '</option>';
 					}
 					echo '		</select></br>';
+					}
 					echo ' 		<select name="ordStat">';
 					$stmt = $this->db->prepare('
 						select * from order_status;');

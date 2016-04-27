@@ -33,8 +33,8 @@ class pageChOrder extends model\pageTemplate{
 				$stmt = $this->db->prepare('
 					select order_ID from `order`');
 				if($stmt->execute()){
-					while($order = $stmt->fetch()){
-						$this->displayOrder($order[0]);
+					while($od = $stmt->fetch()){
+						$this->displayOrder($od[0]);
 					}
 				}
 			}catch(PDOException $e){
@@ -64,7 +64,7 @@ class pageChOrder extends model\pageTemplate{
 									<h4>Order Price</h4>
 									<p>'.$data[5].'</p>
 									<h3>Order Status</h3>
-									<p>'.$data[6].'</p>
+									<p>'.$data[7].'</p>
 								</div>
 								';
 						echo '</div>';
@@ -129,6 +129,7 @@ class pageChOrder extends model\pageTemplate{
 			if($rowCheck > 0){
 				echo '
 				<div class="orderDetail">
+					order number = ' . $orderId . '</br>
 					username = ' . $user . '</br>
 					card number = ' . $card . '</br>
 					order status = ' . $stat . '</br>

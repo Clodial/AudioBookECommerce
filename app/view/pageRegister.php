@@ -163,24 +163,25 @@ class pageRegister extends model\pageTemplate{
 					<h2>New User Sign Up</h2>
 					<h5>Welcome!</h5>
 					<form method="get">
-						<label>Email</label>
+						<label>Email</label><br>
 						<input type="email" name="email" required><br>
-						<label>Username</label>
+						<label>Username</label><br>
 						<input type="text" name="username" required></br>
-						<label>Address</label>
+						<label>Address</label><br>
 						<select name="address">';
 						$addArr = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
 						foreach($addArr as $key => $value){
 							echo '<option value=' . $value . '>' . $value . '</option>'; 
 						}
+						echo '<option value="none">none</option>';
 		echo 			'</select></br>
-						<label>Phone Number</label>
+						<label>Phone Number</label><br>
 						<input type="text" name="number" required></br>
-						<label>Password</label>
+						<label>Password</label><br>
 						<input type="password" name="password" required></br>
-						<label>Retype Password</label>
+						<label>Retype Password</label><br>
 						<input type="password" name="rePass" required></br>
-						<label>Account Type</label>
+						<label>Account Type</label><br>
 						<select name="actType" required>
 							<option value="1">Customer</option>
 							<option value="2">Employee</option>

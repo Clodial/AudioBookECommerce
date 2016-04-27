@@ -18,8 +18,6 @@ session_start();
 <?php
 include("app/model/dbConnect.php");
 
-//echo bookAPIuse("https://audio-book-it490.herokuapp.com/api/v1/bookApi.php", 'test', 0);
-
 $db = NULL;
 try{
 	$db = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
@@ -31,10 +29,6 @@ try{
 use app\model as Model;
 use app\view as View;
 $main = new Model\main($db);
-//print_r(json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'searchByOrd', 6, 0)));
-//echo bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'checkAvailable', 0);
-//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'updateOrder', 10);
-//echo bookAPIuse("http://localhost/AudioBookIT490/api/v1/bookApi.php", 'addressData', 0);
 
 
 function bookAPIuse($url, $function, $index, $flNum) {

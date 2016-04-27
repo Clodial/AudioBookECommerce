@@ -32,10 +32,11 @@ abstract class pageTemplate{
 		*
 		**/
 
-		echo '<div class="navbar col-md-12" id="topNav">';
+		echo '<div class="navbar-full col-md-12" id="topNav">';
+		echo '	<div class="navbar-inner">';
 		echo '<form method="get">';
 		echo '  <ul class="nav navbar-nav nav-left">';
-		echo '		<li><img src="img/IT490_Logo3.png" height=50px width=50px></li>';
+		echo '		<li><img class="logoLook" src="img/Betterlogo.png" height=50px ></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageIndex">Home</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageBrowse">Browse</button></li>';
 		echo '		<li><button class="" type="submit" name="page" value="pageChOrder">Check Orders</button></li>';
@@ -57,7 +58,8 @@ abstract class pageTemplate{
 			$this->logBar();
 
 		}
-		echo '</div>';
+		echo '</div>
+		</div>';
 
 	}
 	public function getBody(){
@@ -89,13 +91,13 @@ abstract class pageTemplate{
 
 		echo '<form method="get" class="col-md-6">';
 		echo '	<ul class="nav navbar-nav nav-right">';
-		echo ' 		<li><label class="user">Welcome, '.$_SESSION['username'].'!</label</li>';
-		echo '  	<li><button class="" type="submit" name="page" value="pageLogout">Logout</button</li>';
-		echo '  	<li><button class="" type="submit" name="page" value="pageCart">Cart</button></li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pagePayment">Add Payment</button></li>';		
 		echo '  	<li><button class="" type="submit" name="page" value="pageActSettings">Account Info</button></li>';
+		echo '  	<li><button class="" type="submit" name="page" value="pageCart">Cart</button></li>';
+		echo '  	<li><button class="" type="submit" name="page" value="pageLogout">Logout</button</li>';
 		echo '  </ul>';
 		echo '</form>';
+		
 
 	}
 	public function logBar(){
@@ -104,7 +106,6 @@ abstract class pageTemplate{
 		echo '	<ul class="nav navbar-nav nav-right ">';
 		echo '  	<li><button class="" type="submit" name="page" value="pageRegister">Register</button</li>';
 		echo '  	<li><button class="" type="submit" name="page" value="pageLogin">Sign In</button></li>';
-		echo '  	<li><button class="" type="submit" name="page" value="pageLibrary">Library</button</li>';
 		echo '  </ul>';
 		echo '</form>';
 

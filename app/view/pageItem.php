@@ -195,37 +195,39 @@ class pageItem extends model\pageTemplate{
 		}
 		echo '
 		<div class="itemBody col-md-12">
-			<div class="itemTop col-md-4">
+			<div class="itemLeft">
 				<div class="itemPic">
 					<img src="data:image/jpeg;base64,'.base64_encode( $img ).'" height=200px width=200px/>
 				</div>
 				<div class="itemInfo">
-					<h2>'.$name.'</h2>
 					<h3>By: '.$auth.'</h3>
 					<h5>$'.$price.'</h5>
 					<p>'.$gName.'</p><br>
-				</div>
-			</div>
-			<div class="itemBottom">
+				</div>';
+				if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
+				echo '<form method="post">
+						<input type="hidden" name="aCart" value="'.$name.'">
+						<button type="submit" name="page" value="pageItem">Buy Item</button>
+					</form>';
+				}else if($_SESSION['actType'] == 'employee'){
+					echo '<form method="post">
+						<input type="hidden" name="aCart" value="'.$name.'">
+						<input type="hidden" name="delete" value="true">
+						<button type="submit" name="page" value="pageItem">Delete Item</button>
+					</form>';
+				}
+		echo '</div>
+			<div class="itemRight">
 				<div class="itemDesc">
-					<h2>Item Details</h2><br>
-					<p>'.$desc.'</p>
+					<h2>'.$name.'</h2><br>
+					<h3>By: '.$auth.'</h3></br>
+					<p>'.$desc.'</p></br>
+					<p>'.$gName.'</p><br>
+					<h5>$'.$price.'</h5>
 				</div>
 			</div>';
-			if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
-			echo '<form method="post">
-					<input type="hidden" name="aCart" value="'.$name.'">
-					<button type="submit" name="page" value="pageItem">Buy Item</button>
-				</form>';
-			}else if($_SESSION['actType'] == 'employee'){
-				echo '<form method="post">
-					<input type="hidden" name="aCart" value="'.$name.'">
-					<input type="hidden" name="delete" value="true">
-					<button type="submit" name="page" value="pageItem">Delete Item</button>
-				</form>';
-			}
 		echo'</div>';
-
+		echo '<div class="clearfix"></div>';
 	}
 
 } 

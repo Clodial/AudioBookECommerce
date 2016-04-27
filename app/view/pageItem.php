@@ -207,7 +207,7 @@ class pageItem extends model\pageTemplate{
 				if(isset($_SESSION['actType']) && $_SESSION['actType'] == 'customer'){
 				echo '<form method="post">
 						<input type="hidden" name="aCart" value="'.$name.'">
-						<button type="submit" name="page" value="pageItem">Buy Item</button>
+						<button type="submit" name="page" value="pageItem">Add to Cart</button>
 					</form>';
 				}else if($_SESSION['actType'] == 'employee'){
 					echo '<form method="post">

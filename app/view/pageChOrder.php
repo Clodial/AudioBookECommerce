@@ -61,7 +61,7 @@ class pageChOrder extends model\pageTemplate{
 				');
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						echo '<div class="selectOrd col-md-3">';
+						echo '<div class="autoOrd col-md-12">';
 						echo '	<div class="col-md-4"';
 						echo '		<h5>Order Number</h5>
 									<p>'.$data[0].'</p>

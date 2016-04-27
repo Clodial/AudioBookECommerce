@@ -22,11 +22,19 @@ class pageChOrder extends model\pageTemplate{
 
 		if(isset($_REQUEST['order'])){
 
+			echo '<div class="formBody">
+					<h2>View Selected Orders</h2>
+				  </div>';
+
 			$this->displayOrder($_REQUEST['order']);
 			
 		}
 
 		if(isset($_REQUEST['all'])){
+
+			echo '<div class="formBody">
+					<h2>View Selected Orders</h2>
+				  </div>';
 
 			$orderArray = array();
 			try{
@@ -53,7 +61,7 @@ class pageChOrder extends model\pageTemplate{
 				');
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
-						echo '<div class="col-md-12">';
+						echo '<div class="selectOrd col-md-3">';
 						echo '	<div class="col-md-4"';
 						echo '		<h5>Order Number</h5>
 									<p>'.$data[0].'</p>

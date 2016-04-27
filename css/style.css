@@ -1,3 +1,10 @@
+select{
+	border-style: none;
+	border-bottom: 1px dashed;
+	background-color: white;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
 .navbar-full{
 
 	width: 100%;
@@ -5,6 +12,10 @@
 	border-bottom-style: solid;
 	border-bottom-color: black;
 
+}
+.formBody{
+	margin-top:120px;
+	margin-left: 50px;
 }
 .logoLook{
 	padding-right: 100px;
@@ -69,6 +80,10 @@ button{
 	margin-left:10px;
 	border-color: black;
 }
+.selectOrd{
+	padding: 20px;
+	border: 1px solid;
+}
 .container{
 	margin: 0 auto;
 	min-height:	1000px;
@@ -85,7 +100,7 @@ button:hover{
 	vertical-align: middle;
 }
 .smItemBody{
-	margin-top: 50px;
+	margin-top: 20px;
 	padding: 20px;
 	border: 1px solid;
 

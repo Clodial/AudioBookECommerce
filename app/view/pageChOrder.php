@@ -116,9 +116,10 @@ class pageChOrder extends model\pageTemplate{
 			$stat = '';
 			$price = '';
 			$date = '';
+			$address = '';
 			$stmt = $this->db->prepare('
 				select 
-				account.account_username, customer_payment.card_number, order_status.order_status, `order`.order_total, `order`.order_date, `order`.flight_num  
+				account.account_username, customer_payment.card_number, order_status.order_status, `order`.order_total, `order`.order_date, `order`.flight_num, account.account_address  
 				from `order`, account, customer_payment, order_status 
 				where `order`.order_ID = :order
 					and `order`.account_ID = account.account_ID
@@ -135,6 +136,7 @@ class pageChOrder extends model\pageTemplate{
 					$price = $data[3];
 					$date = $data[4];
 					$flightNum = $data[5];
+					$address = $data[6];
 					$rowCheck += 1;
 				}
 			}
@@ -147,6 +149,7 @@ class pageChOrder extends model\pageTemplate{
 					order status = ' . $stat . '</br>
 					order price = ' . $price . '</br>
 					order date = ' . $date . '</br>
+					order address = '. $address . '</br>
 				';
 				$stmt = $this->db->prepare('
 					select 

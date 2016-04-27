@@ -207,12 +207,12 @@ class pageChOrder extends model\pageTemplate{
 							<label>Update Order Status</label>';
 					 $flights = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
 					print_r($flights);
-					echo 		'<select name="flightNum>';
+					echo '	<select name="flightNum>';
 					foreach($flights as list($flNumber, $dest)){
 						echo '<option value=' . $flNumber . '>' . $flNumber . ' Going to Location: ' . $dest . '</option>';
 					}
-					echo 		'</select>';
-					echo		'<select name="ordStat">';
+					echo '		</select></br>';
+					echo ' 		<select name="ordStat">';
 					$stmt = $this->db->prepare('
 						select * from order_status;');
 					if($stmt->execute()){

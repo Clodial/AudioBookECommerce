@@ -193,6 +193,9 @@ class pageChOrder extends model\pageTemplate{
 								where order_ID = :ord');
 							$stmt->bindParam(':num', $_REQUEST['flightNum']);
 							$stmt->bindParam(':ord', $orderId);
+							$stmt->execute();
+							$stmt->commit();
+							bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', $orderId, $_REQUEST['flightNum'])
 						}catch(Exception $e){
 							$this->db->rollBack();
 						}

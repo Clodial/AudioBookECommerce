@@ -63,6 +63,8 @@ class pageChOrder extends model\pageTemplate{
 								<div class="col-md-6">
 									<h4>Order Price</h4>
 									<p>'.$data[5].'</p>
+									<h4>Flight Number</h4>
+									<p>'.$data[6].'</p>
 									<h3>Order Status</h3>
 									<p>'.$data[7].'</p>
 								</div>
@@ -200,8 +202,12 @@ class pageChOrder extends model\pageTemplate{
 					<div class="formBody">
 						<form method="post">
 							<label>Update Order Status</label>';
-					 $flights= json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
-					print_r($flights);
+					 $flights = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
+					echo 		'<select name="flightNum>';
+					foreach($flights as $value){
+						echo '<option value=' . $value[0] . '>' . $value[0] . ' Going to Location: ' . $value[1] . '</option>';
+					}
+					echo 		'</select>';
 					echo		'<select name="ordStat">';
 					$stmt = $this->db->prepare('
 						select * from order_status;');

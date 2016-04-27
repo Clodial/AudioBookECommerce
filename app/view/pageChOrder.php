@@ -184,7 +184,7 @@ class pageChOrder extends model\pageTemplate{
 							echo 'Order Status Error';
 						}
 					}
-					if(isset($_REQUEST['flightNum'])){
+					if(isset($_REQUEST['flightNum']) && isset($_REQUEST['orderYo']) && $_REQUEST['orderYo'] == $orderId){
 						try{
 							$this->db->beginTransaction();
 							$stmt = $this->db->prepare('
@@ -220,6 +220,7 @@ class pageChOrder extends model\pageTemplate{
 						}
 					}
 					echo '	</select>
+							<input type="hidden" name="orderYo" value="' . $orderId . '">
 							<button type="submit" name="page" value="pageChOrder">Update Order
 						</form>
 					</div>';

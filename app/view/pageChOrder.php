@@ -204,7 +204,7 @@ class pageChOrder extends model\pageTemplate{
 					echo '
 					<div class="formBody">
 						<form method="post">
-							<label>Update Order Status</label>';
+							<label>Update Order and Flight statuses</label></br>';
 					 $flights = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
 					echo '		<select name="flightNum">';
 					foreach($flights as list($flNumber, $dest)){

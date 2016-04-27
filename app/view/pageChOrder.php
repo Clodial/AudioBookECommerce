@@ -145,7 +145,7 @@ class pageChOrder extends model\pageTemplate{
 						and inventory.item_ID = order_item_detail.item_ID
 						group by inventory.item_name;
 				');
-				$stmt->bindParam(':ord', $_REQUEST['order']);
+				$stmt->bindParam(':ord', $orderId);
 				if($stmt->execute()){
 					while($data = $stmt->fetch()){
 					echo '<div class="orderItem">

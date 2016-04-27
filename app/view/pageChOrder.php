@@ -208,8 +208,8 @@ class pageChOrder extends model\pageTemplate{
 					 $flights = json_decode(bookAPIuse("https://web.njit.edu/~cmn6/IT490/testApi.php", 'getFlight', 0, 0));
 					print_r($flights);
 					echo 		'<select name="flightNum>';
-					foreach($flights as $value){
-						echo '<option value=' . $value[0] . '>' . $value[0] . ' Going to Location: ' . $value[1] . '</option>';
+					foreach($flights as list($flNum, $dest)){
+						echo '<option value=' . $flNum . '>' . $flNum . ' Going to Location: ' . $dest . '</option>';
 					}
 					echo 		'</select>';
 					echo		'<select name="ordStat">';

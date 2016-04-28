@@ -8,7 +8,7 @@
 **/
 
 error_reporting(E_ALL);
-//ini_set('display_errors','On');
+ini_set('display_errors','On');
 include('app/autoloader.php');
 spl_autoload_register('autoloader::load');
 

@@ -148,6 +148,7 @@ class pageChOrder extends model\pageTemplate{
 					order status = ' . $stat . '</br>
 					order price = ' . $price . '</br>
 					order date = ' . $date . '</br>
+					order address = '. $address . '</br>
 				';
 				$stmt = $this->db->prepare('
 					select 
